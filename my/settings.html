@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)https://coa.sesedu.cn/home/settings -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="UTF8">
+
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../script/global.js"></script>
+	<title>个性食堂 - 设置</title>
+	<link href="../img/favicon.png" rel="shortcut icon">
+	<meta content="text/html;charset=UTF-8" http-equiv="Content-type">
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<link href="../layout/common.min.css" rel="stylesheet">
+	<link href="../layout/all.min.css" rel="stylesheet">
+	<link href="../layout/h5.css" rel="stylesheet">
+	<style>
+		.header-wrapper {
+			width: 100%;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 1000
+		}
+
+		.header {
+			height: 3.8em;
+			border-bottom: solid 1px #ccc;
+			background-color: #fff;
+			color: #666
+		}
+	</style>
+	<style>
+		.h5-body {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+			padding: 0;
+			z-index: 500
+		}
+
+		.content-bg {
+			background-color: #fff;
+			padding-bottom: 10em;
+			height: 100vh;
+			overflow-y: scroll;
+			overflow-x: hidden
+		}
+
+		.body-container {
+			padding-top: 3.8em
+		}
+	</style>
+	<style>
+		.footer-wrapper {
+			width: 100%;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			top: auto;
+			z-index: 1000
+		}
+
+		.footer {
+			height: 56px;
+			background: #fff;
+			padding-top: 6px;
+			font-size: .8em
+		}
+
+		.footer a {
+			position: relative
+		}
+
+		.footer-badge {
+			position: absolute;
+			top: 0;
+			right: -1.5em;
+			display: block;
+			min-width: 1.6em;
+			height: 1.6em;
+			border-radius: .8em;
+			padding: 0 .5em;
+			background-color: #d00;
+			text-align: center;
+			color: #fff;
+			font-weight: 700
+		}
+
+		.footer a.focus {
+			color: #40cc9d
+		}
+
+		.footer .footer-icon {
+			margin: 2px;
+			font-size: 24px
+		}
+	</style>
+</head>
+
+<body>
+	<div id="gApp">
+		<div class="h5-body">
+			<div class="container px-0">
+				<div class="row no-gutters">
+					<div class="col-xl-6 offset-xl-3">
+						<div class="viewport">
+							<div class="content-bg">
+								<div class="p-3">
+									<div class="form-group mt-3" id="set-typ"><label>您的身份<span
+												class="badge badge-success">已认证</span></label>
+										<div class="input-group input-group-sm"><input type="text" disabled="disabled"
+												class="form-control">
+											<div class="input-group-append"><button type="button"
+													class="btn btn-secondary">重新选择 <i class="fa fa-edit"></i></button>
+											</div>
+										</div>
+									</div>
+									<form class="form" view="editor">
+										<div class="d-none d-block">
+											<div class="form-group"><label>证件号 <i class="text-red">*</i></label>
+												<div class="input-group"><input type="text"
+														class="form-control form-control-sm">
+													<div class="input-group-append"><button type="button"
+															class="btn btn-sm btn-secondary"><i
+																class="fa fa-search"></i></button></div>
+												</div><small class="text-muted">* 填写完证件号，请点击右方查询( <i
+														class="fa fa-search"></i> )按钮<br>* 香港身份证无需填写括号及括号内字符<br>*
+													港澳居民往来内地通行证只需填写前9位，最后2位为签发次数无需填写</small>
+											</div>
+											<div class="form-group"><label>学生姓名</label> <input type="text"
+													disabled="disabled" class="form-control form-control-sm"></div>
+										</div>
+										<div class="form-group"><label>学籍号</label> <input type="text"
+												disabled="disabled" class="form-control form-control-sm"></div>
+										<div class="form-group"><label>班级</label> <input disabled="disabled"
+												class="form-control form-control-sm"></div>
+										<div class="form-group"><label><span>设置</span>查询机登录密码 <i
+													class="text-red">*</i><br></label> <input type="text" maxlength="6"
+												class="form-control form-control-sm"> <small class="text-muted">*
+												请填写6位数字，该密码仅可用于自助查询机</small></div>
+									</form>
+									<form class="form mt-3">
+										<div class="form-group">
+											<!---->
+										</div>
+										<div class="form-group">
+											<!---->
+										</div>
+										<div class="form-group">
+											<!---->
+										</div>
+										<div class="form-group">
+											<!---->
+										</div>
+										<div class="form-group">
+											<!---->
+										</div>
+										<div class="form-group">
+											<div _v-6c87118a="" class="row"><label _v-6c87118a=""
+													class="col-12 col-form-label"><span _v-6c87118a="">
+														您是否有自己的手机?&nbsp;<i _v-6c87118a=""
+															class="text-danger">*</i></span></label>
+												<div _v-6c87118a="" class="col-12"><i role="button"
+														class="fa-2x fa fa-toggle-on text-success" _v-6c87118a=""></i>
+													<!---->
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div _v-6c87118a="" class="row"><label _v-6c87118a=""
+													class="col-12 col-form-label"><span _v-6c87118a="">
+														您家中是否有打印机?&nbsp;<i _v-6c87118a=""
+															class="text-danger">*</i></span></label>
+												<div _v-6c87118a="" class="col-12"><i role="button"
+														class="fa-2x fa fa-toggle-on text-success" _v-6c87118a=""></i>
+													<!---->
+												</div>
+											</div>
+										</div>
+										<div class="form-group mt-3">
+											<div class="row">
+												<div class="col-6"><a href="https://coa.sesedu.cn/home"
+														class="btn btn-outline-secondary btn-block">取消</a></div>
+												<div class="col-6"><button type="submit"
+														class="btn btn-green btn-block">保存</button></div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-wrapper no-print">
+			<div class="container px-0">
+				<div class="row no-gutters">
+					<div class="col-xl-6 offset-xl-3">
+						<div class="viewport">
+							<div class="border-top shadow-sm">
+								<div class="bg-light"></div>
+								<div class="footer shadow-sm d-flex justify-content-around text-center">
+									<a data-nav="gen" href="../index.html">
+										<i class="fa fa-cubes footer-icon"></i>
+										<br>
+										服务
+									</a>
+									<a data-nav="pol" href="../updlog.html">
+										<i class="fa fa-bookmark footer-icon"></i>
+										<br>
+										更新日志
+									</a>
+									<a data-nav="help" href="../help.html">
+										<i class="fa fa-question-circle footer-icon"></i>
+										<br>
+										帮助
+									</a>
+									<a class="focus" data-nav="mine" href="../my.html">
+										<i class="fa fa-user footer-icon"></i>
+										<br>
+										我的
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

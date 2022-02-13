@@ -1,0 +1,351 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<title>个性食堂 - 本周订餐</title>
+	<link href="./assets/img/favicon.png" rel="shortcut icon">
+	<meta content="text/html;charset=UTF-8" http-equiv="Content-type">
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<link href="./assets/layout/common.min.css" rel="stylesheet">
+	<link href="./assets/layout/all.min.css" rel="stylesheet">
+	<link href="./assets/layout/h5.css" rel="stylesheet">
+	<style type="text/css">
+		.verify-msg {
+			font-size: 3em;
+			font-weight: 700;
+			margin-top: 50px;
+			text-align: center
+		}
+	</style>
+	<style>
+		.order-panel {
+			width: 25em;
+			padding: 1em;
+			border: solid 1px #ccc;
+			margin: auto;
+			margin-top: 5em;
+			text-align: center;
+			color: #333
+		}
+
+		.order-name {
+			width: 4.8em;
+			padding: 2px 4px;
+			color: #333;
+			font-size: 2em;
+			font-weight: 700
+		}
+
+		.img-qrcode {
+			width: 9.6em;
+			height: 9.6em;
+			justify-content: center;
+			align-items: center;
+			display: flex;
+		}
+
+		.user-name {
+			font-size: 2.4em;
+			margin-top: .2em
+		}
+
+		.ticket-body {
+			padding-right: 1em
+		}
+
+		.order-area {
+			margin: -.3em 0;
+			font-size: 9em;
+			font-weight: 700
+		}
+		
+		.order-area-tail {
+			font-size: .2em
+		}
+
+		.order-location {
+			margin-top: .75em;
+			font-size: 1.8em;
+			line-height: 2em;
+			font-weight: 700
+		}
+	</style>
+	<style>
+		.supply-date-list {
+			width: 100%;
+		}
+
+		.supply-date-list>li {
+			padding-bottom: .5em;
+			border-bottom: solid 1px #ccc
+		}
+
+		.supply-date-list .date-icon {
+			width: 100%;
+			height: 5em;
+			padding-top: .8em;
+			text-align: center;
+			font-size: 1em;
+			font-weight: 700
+		}
+
+		.supply-list {
+			border-radius: 5px;
+			background-color: #fffcee
+		}
+
+		.supply-list li {
+			padding: 10px;
+			border-bottom: solid 1px #eee
+		}
+
+		.supply-list .title {
+			font-size: 16px;
+			font-weight: 700
+		}
+
+		.supply-list .btn {
+			float: right;
+			width: 80px;
+			border-radius: 3px
+		}
+
+		.media img {
+			width: 4em !important
+		}
+	</style>
+	<style>
+		.header-wrapper {
+			width: 100%;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 1000
+		}
+
+		.header {
+			height: 3.8em;
+			border-bottom: solid 1px #ccc;
+			background-color: #fff;
+			color: #666
+		}
+	</style>
+	<style>
+		.body-wrapper {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+			padding: 0;
+			z-index: 500
+		}
+
+		.content-bg {
+			background-color: #fff;
+			padding-bottom: 10em;
+			height: 100vh;
+			overflow-y: scroll;
+			overflow-x: hidden
+		}
+
+		.body-container {
+			padding-top: 3.8em
+		}
+	</style>
+	<style>
+		.footer-wrapper {
+			width: 100%;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			top: auto;
+			z-index: 1000
+		}
+
+		.footer {
+			height: 56px;
+			background: #fff;
+			border-top: solid 1px #ccc;
+			padding-top: 6px;
+			font-size: .8em
+		}
+
+		.footer a {
+			position: relative
+		}
+
+		.footer-badge {
+			position: absolute;
+			top: 0;
+			right: -1.5em;
+			display: block;
+			min-width: 1.6em;
+			height: 1.6em;
+			border-radius: .8em;
+			padding: 0 .5em;
+			background-color: #d00;
+			text-align: center;
+			color: #fff;
+			font-weight: 700
+		}
+
+		.footer a.focus {
+			color: #40cc9d
+		}
+
+		.footer .footer-icon {
+			margin: 2px;
+			font-size: 24px
+		}
+	</style>
+	<style>
+		.global-alert {
+			z-index: 2000
+		}
+
+		#gAlertModal .modal-content {
+			padding: 8px
+		}
+
+		#gAlertModal #gAlertMsg {
+			padding: 20px 8px
+		}
+	</style>
+</head>
+
+<body>
+	<div class="modal fade global-alert" id="gAlertModal" style="display: none;">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<button class="close float-right" id="gAlertButton" type="button">
+					<span aria-hidden="true">×</span>
+				</button>
+				<div class="text-center font-weight-bold" id="gAlertMsg"></div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade" id="gAlertBack" style="display: none;"></div>
+	<div id="gApp">
+		<div class="header-wrapper">
+			<div class="container px-0">
+				<div class="row no-gutters">
+					<div class="col-xl-6 offset-xl-3">
+						<div class="viewport">
+							<div
+								class="header shadow-sm px-3 d-flex d-flex justify-content-between align-items-center text-center">
+								<h5>本周订餐</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="body-wrapper">
+			<div class="container px-0">
+				<div class="row no-gutters">
+					<div class="col-xl-6 offset-xl-3">
+						<div class="viewport">
+							<div class="content-bg body-container">
+								<ul class="nav nav-tabs nav-justified px-3 my-3">
+									<li class="nav-item"><a class="nav-link active" onclick="goTab(0)">订餐</a></li>
+									<li class="nav-item"><a class="nav-link disabled" onclick="goTab(1)">识别码</a></li>
+								</ul>
+								<div id="tab-0">
+									<div id="order-list"></div>
+								</div>
+								<div id="tab-1" style="display:none">
+									<div class="order-panel">
+										<div class="d-flex justify-content-between">
+											<div>
+												<div class="order-name">AB^DH</div>
+												<img class="img-qrcode border" id="qrc">
+												<script>
+
+												</script>
+												<div class="user-name text-center">
+													<span>root</span>
+												</div>
+											</div>
+											<div class="ticket-body">
+												<div class="order-area">
+													20<span class="order-area-tail">周</span>
+												</div>
+												<div class="order-location">
+													<span id="loc">
+														<span>
+															<span>
+																1/1 周一
+															</span>
+														</span>
+													</span>
+													<div>食堂一楼</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h2 class="verify-msg" id="msg">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-wrapper no-print">
+			<div class="container px-0">
+				<div class="row no-gutters">
+					<div class="col-xl-6 offset-xl-3">
+						<div class="viewport">
+							<div class="bg-light border-top">
+								<div class="p-2 border-top">
+									<span class="btn btn-block btn-green" id="order">订餐</span>
+								</div>
+								<div class="p-2 border-top" style="display: none">
+									<span class="btn btn-block btn-gray disabled" id="order-no">已确认</span>
+								</div>
+							</div>
+							<div class="footer shadow-sm d-flex justify-content-around text-center">
+								<a class="focus" data-nav="app" href="./index.html">
+									<i class="fa fa-cubes footer-icon"></i>
+									<br>
+									应用
+								</a>
+								<a data-nav="pol" href="./updlog.html">
+									<i class="fa fa-bookmark footer-icon"></i>
+									<br>
+									更新日志
+								</a>
+								<a data-nav="help" href="./help.html">
+									<i class="fa fa-question-circle footer-icon"></i>
+									<br>
+									帮助
+								</a>
+								<a data-nav="mine" href="./my.html">
+									<i class="fa fa-user footer-icon"></i>
+									<br>
+									我的
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="./assets/script/global.js"></script>
+	<script type="text/javascript" src="./assets/script/order.js"></script>
+	<script>
+		document.getElementById("gAlertButton").onclick = gAlertClose;
+		document.getElementById("gAlertModal").onclick = gAlertClose;
+	</script>
+</body>
+
+</html>
