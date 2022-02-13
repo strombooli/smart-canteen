@@ -1,12 +1,12 @@
 <?php
-@header("content-type:text/html;charset=uft8");
-$conn = mysqli_connect("localhost", "root", "123456") or die("err_conn" . mysqli_error($conn));
-$select = mysqli_select_db($conn, "myDB") or die("err_conn" . mysqli_error($conn));
+@header("content-type:text/html;charset=utf8");
+$conn = mysqli_connect("localhost", "root", "123456") or die("数据库用户名密码错误" . mysqli_error($conn));
+$select = mysqli_select_db($conn, 'myDB');
 $utf = mysqli_query($conn, "set names utf8");
 
 
 
-$MAXLVL = 6;
+$MAXLVL = 2;
 $cook = $_COOKIE["acc"];
 $cook_arr = explode("@", $cook);
 $user = $cook_arr[0];
@@ -35,26 +35,16 @@ if ($pwdnum != $pass) {
 
 
 
-$sql = mysqli_query($conn, "select * from warn");
-$row = mysqli_fetch_array($sql);
-if(!count($row)){
-	return;
+$title = $_POST["title"];
+$start = $_POST["start"];
+$end = $_POST["end"];
+$content = $_POST["content"];
+$rng = $_POST["rng"];
+
+mysqli_query($conn, "insert into warn(title,time_start,time_end,content,rang) values('$title','$start','$end','$content','$rng')");
+
+if (false) {
+	echo json_encode('err');
+} else {
+	echo json_encode('success');
 }
-
-$sql = mysqli_query($conn, "select * from warn");
-
-$i = 0;
-$row = mysqli_fetch_array($sql);
-do {
-	$rows[$i] = $row;
-	$i++;
-} while ($row = mysqli_fetch_array($sql));
-$rowall = '';
-for ($i = 0; $i < count($rows); $i++) {
-	for ($j = 0; $j < 5; $j++) {
-		$rowall = $rowall . $rows[$i][$j] . ',';
-	}
-	$rowall = $rowall . $rows[$i][$j] . ';';
-}
-
-echo json_encode($rowall);

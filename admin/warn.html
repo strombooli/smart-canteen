@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-	<title>个性食堂 - 本周订餐</title>
+	<title>个性食堂 - 后台管理 - 通知设置</title>
 	<link href="../assets/img/favicon.png" rel="shortcut icon">
 	<meta content="text/html;charset=UTF-8" http-equiv="Content-type">
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
@@ -149,7 +149,7 @@
 						<div class="viewport">
 							<div
 								class="header shadow-sm px-3 d-flex d-flex justify-content-between align-items-center text-center">
-								<h5>本周订餐</h5>
+								<h5>通知设置</h5>
 							</div>
 						</div>
 					</div>
@@ -174,18 +174,109 @@
 											<li class="py-2" style="border-bottom: solid 1px #ccc">
 												<div class="row no-gutters">
 													<div class="col-1" style="margin: auto">ID</div>
-													<div class="col" style="margin: auto">开始时间</div>
-													<div class="col" style="margin: auto">结束时间</div>
+													<div class="col-1" style="margin: auto">标题</div>
+													<div class="col-2" style="margin: auto">开始时间</div>
+													<div class="col-2" style="margin: auto">结束时间</div>
+													<div class="col-1" style="margin: auto">状态</div>
 													<div class="col" style="margin: auto">内容</div>
-													<div class="col" style="margin: auto">范围</div>
+													<div class="col-1" style="margin: auto">范围</div>
 												</div>
 											</li>
 										</ul>
 									</div>
 									<div id="warn-list"></div>
 								</div>
-								<div id="tab-1" style="display:none">
-
+								<div class="p-3" id="tab-1" style="display:none; padding-top:0px !important">
+									<form class="form" view="editor">
+										<div class="d-block">
+											<div class="form-group">
+												<div class="form-group">
+													<label>通知 ID</label>
+													<input id="warn-newid" type="text" disabled="disabled"
+														class="form-control form-control-sm">
+												</div>
+												<label>通知标题 <i class="text-red">*</i></label>
+												<div class="input-group">
+													<input id="warn-ttl" type="text" maxlength="30"
+														class="form-control form-control-sm">
+												</div>
+												<small class="text-muted">* 通知标题不会实际展现在通知上<br>
+													* 最长三十个字符</small>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>通知时间 <i class="text-red">*</i></label>
+											<div class="input-group">
+												<input type="datetime-local" id="warn-start"
+													class="form-control form-control-sm">
+												<label style="white-space: pre"> 至 </label>
+												<input type="datetime-local" id="warn-end"
+													class="form-control form-control-sm">
+											</div>
+											<small class="text-muted">* 结束时间不得早于当前时间</small>
+										</div>
+										<div class="form-group">
+											<label>通知内容 <i class="text-red">*</i></label></label>
+											<div class="input-group">
+												<input id="warn-content" type="text" maxlength="300"
+													class="form-control form-control-sm">
+											</div>
+											<small class="text-muted">* 支持 HTML5 样式<br>
+												* 最长三百个字符</small>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<label class="col-12 col-form-label">
+													<span>通知范围
+														<i class="text-danger">*</i>
+													</span>
+												</label>
+												<div id="tog-0" class="col-4 text-center tgl" onclick="toggle(0)">
+													<i role="button" class="fa-2x fa fa-toggle-off text-muted"></i>
+													<br>
+													<i>index.html</i>
+												</div>
+												<div id="tog-1" class="col-4 text-center tgl" onclick="toggle(1)">
+													<i role="button" class="fa-2x fa fa-toggle-off text-muted"></i>
+													<br>
+													<i>updlog.html</i>
+												</div>
+												<div id="tog-2" class="col-4 text-center tgl" onclick="toggle(2)">
+													<i role="button" class="fa-2x fa fa-toggle-off text-muted"></i>
+													<br>
+													<i>help.html</i>
+												</div>
+											</div>
+											<br>
+											<div class="row">
+												<div id="tog-3" class="col-2 text-center tgl" onclick="toggle(3)">
+													<i role="button" class="fa-2x fa fa-toggle-off text-muted"></i>
+													<br>
+													<i>manage.html</i>
+												</div>
+												<div id="tog-4" class="col-2 text-center tgl" onclick="toggle(4)">
+													<i role="button" class="fa-2x fa fa-toggle-off text-muted"></i>
+													<br>
+													<i>rule.html</i>
+												</div>
+												<div id="tog-5" class="col-2 text-center tgl" onclick="toggle(5)">
+													<i role="button" class="fa-2x fa fa-toggle-off text-muted"></i>
+													<br>
+													<i>upload.html</i>
+												</div>
+												<div id="tog-6" class="col-3 text-center tgl" onclick="toggle(6)">
+													<i role="button" class="fa-2x fa fa-toggle-off text-muted"></i>
+													<br>
+													<i>combo-gen.html</i>
+												</div>
+												<div id="tog-7" class="col-2 text-center tgl" onclick="toggle(7)">
+													<i role="button" class="fa-2x fa fa-toggle-off text-muted"></i>
+													<br>
+													<i>overview.html</i>
+												</div>
+											</div>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -205,22 +296,22 @@
 								</div>
 							</div>
 							<div class="footer shadow-sm d-flex justify-content-around text-center">
-								<a class="focus" data-nav="app" href="./index.html">
+								<a class="focus" data-nav="app" href="../index.html">
 									<i class="fa fa-cubes footer-icon"></i>
 									<br>
 									应用
 								</a>
-								<a data-nav="pol" href="./updlog.html">
+								<a data-nav="pol" href="../updlog.html">
 									<i class="fa fa-bookmark footer-icon"></i>
 									<br>
 									更新日志
 								</a>
-								<a data-nav="help" href="./help.html">
+								<a data-nav="help" href="../help.html">
 									<i class="fa fa-question-circle footer-icon"></i>
 									<br>
 									帮助
 								</a>
-								<a data-nav="mine" href="./my.html">
+								<a data-nav="mine" href="../my.html">
 									<i class="fa fa-user footer-icon"></i>
 									<br>
 									我的

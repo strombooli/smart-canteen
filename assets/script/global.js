@@ -48,9 +48,7 @@ function showWarning(s) {
 	document.getElementsByClassName("content-bg")[0].firstElementChild.insertBefore(newElement, document.getElementsByClassName("content-bg")[0].firstElementChild.firstElementChild);
 }
 
-let autoWarn = false;
-let warningList = new Array();
-let onRng = new Array();
+let autoWarn = true;
 
 if (autoWarn) {
 	$.ajax({
@@ -59,17 +57,21 @@ if (autoWarn) {
 		dataType: 'json',
 		async: false,
 		success: function (result) {
-			if (result !== "success") throwError("ERR_WRNG_REP");
+			let warnList = new Array();
 			for (let i = 0; i < result.split(";").length - 1; i++) {
-				warningList[i] = result.split(";")[i].split(",");
-				if (pathVerify(warningList[i][4])) onRng[i] = true;
-				else onRng[i] = false;
+				warnList[i] = result.split(";")[i].split(",");
 			}
-			for (let i = 0; i < warningList.length; i++) {
-				let warnStart = new Date(warningList[i][1]);
-				let warnEnd = new Date(warningList[i][2]);
+			for (let i = 0; i < warnList.length; i++) {
+				let warnRng = warnList[i][5].slice(0, -1);
+				let warnRngArr = warnRng.split("|");
+				let onRng = false;
+				for (let j = 0; j < warnRngArr.length; j++) {
+					if (pathVerify(warnRngArr[j])) onRng = true;
+				}
+				let warnStart = new Date(warnList[i][2]);
+				let warnEnd = new Date(warnList[i][3]);
 				let now = new Date();
-				if (onRng[i] && now >= warnStart && now <= warnEnd) showWarning(warningList[i][3]);
+				if (onRng && now >= warnStart && now <= warnEnd) showWarning(warnList[i][4]);
 			}
 		},
 		error: function () {
