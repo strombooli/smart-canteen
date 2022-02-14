@@ -13,10 +13,11 @@
 </head>
 
 <body>
+	<script type="text/javascript" src="./assets/script/global.js"></script>
 	<script type="text/javascript">
 		if (confirm("您正在访问敏感页面，是否继续？") === true) {
 			if (window.location.hostname === "localhost") window.location.href = "./assets/phpMyAdmin";
-			else window.location.href = "./error.html?401.00"
+			else jumpError("401.00");
 		}
 		else {
 			history.back();

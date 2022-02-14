@@ -60,7 +60,7 @@ $(function () {
 			}
 		},
 		error: function () {
-			alert('error');
+			throwError("ERR_PHSG_PHP");
 		}
 	})
 	$.ajax({
@@ -86,7 +86,7 @@ $(function () {
 			ruleCnt = rule.length;
 		},
 		error: function () {
-			alert('error');
+			throwError("ERR_RGA_PHP");
 		}
 	})
 	$("#rul-submit").click(function () {
@@ -119,7 +119,7 @@ $(function () {
 			async: false,
 			success: function (result) {
 				if (result !== "success" && result !== "success_empty") alert("error");
-				else{
+				else {
 					$.ajax({
 						url: '../assets/phs-sub.php',
 						type: 'post',
@@ -127,16 +127,17 @@ $(function () {
 						dataType: 'json',
 						async: false,
 						success: function (result_phs) {
-							if(result_phs === "success") window.location.reload();
+							if (result_phs !== "success") throwError("ERR_PHSS_REP");
+							else window.location.reload();
 						},
 						error: function () {
-							alert('error');
+							throwError("ERR_PHSS_PHP");
 						}
 					})
 				}
 			},
 			error: function () {
-				alert('error');
+				throwError("ERR_RS_PHP");
 			}
 		})
 

@@ -35,15 +35,17 @@ if ($pwdnum != $pass) {
 
 
 
+$wkid = $_POST["wkid"];
+
 $sql = mysqli_query($conn, "select id from user where name='$user'");
 $row = mysqli_fetch_array($sql);
 $userid = $row[0];
 
-$sql = mysqli_query($conn, "select count(*) from ord where user_id=$userid");
+$sql = mysqli_query($conn, "select count(*) from ord where user_id='$userid' and wk_id='$wkid'");
 $row = mysqli_fetch_array($sql);
 $num = $row[0];
 if ($num) {
-	$sql = mysqli_query($conn, "select combo_id from ord where user_id=$userid");
+	$sql = mysqli_query($conn, "select combo_id from ord where user_id='$userid' and wk_id='$wkid'");
 
 	$i = 0;
 	$row = mysqli_fetch_array($sql);

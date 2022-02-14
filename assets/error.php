@@ -10,8 +10,9 @@ $cook = $_COOKIE["acc"];
 $cook_arr = explode("@",$cook);
 $user = $cook_arr[0];
 $code = $_POST["code"];
+$path = $_POST["path"];
 
-mysqli_query($conn, "insert into error(code,username) values('$code','$user')");
+mysqli_query($conn, "insert into error(code,path,username) values('$code','$path','$user')");
 
 if (false) {
 	echo json_encode('err');

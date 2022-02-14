@@ -6,7 +6,7 @@ $utf = mysqli_query($conn, "set names utf8");
 
 
 
-$MAXLVL = 6;
+$MAXLVL = 3;
 $cook = $_COOKIE["acc"];
 $cook_arr = explode("@", $cook);
 $user = $cook_arr[0];
@@ -35,42 +35,31 @@ if ($pwdnum != $pass) {
 
 
 
-$rule = $_POST["rul"];
 $wkid = $_POST["wkid"];
-$rule_array = explode(";", $rule);
+$userid = $_POST["userid"];
 
-$query = "select count(*) from combo where wk_id='$wkid' and ";
-for ($i = 0; $i < count($rule_array) - 1; $i++) {
-	$query =  $query . "'rule_id'=" . $rule_array[$i] . " or ";
-}
-$query = substr($query, 0, -4);
-$sql = mysqli_query($conn, $query);
+$sql = mysqli_query($conn, "select count(*) from ord where user_id='$userid' and wk_id='$wkid'");
 $row = mysqli_fetch_array($sql);
 $num = $row[0];
-if (!$num) {
-	echo json_encode("success_empty");
-	return;
-}
+if ($num) {
+	$sql = mysqli_query($conn, "select combo_id from ord where user_id='$userid' and wk_id='$wkid'");
 
-$query = "select * from combo where wk_id='$wkid' and ";
-for ($i = 0; $i < count($rule_array) - 1; $i++) {
-	$query =  $query . "'rule_id'=" . $rule_array[$i] . " or ";
-}
-$query = substr($query, 0, -4);
-$sql = mysqli_query($conn, $query);
-
-$i = 0;
-$row = mysqli_fetch_array($sql);
-do {
-	$rows[$i] = $row;
-	$i++;
-} while ($row = mysqli_fetch_array($sql));
-$rowall = '';
-for ($i = 0; $i < count($rows); $i++) {
-	for ($j = 0; $j < 9; $j++) {
-		$rowall = $rowall . $rows[$i][$j] . ',';
+	$i = 0;
+	$row = mysqli_fetch_array($sql);
+	do {
+		$rows[$i] = $row;
+		$i++;
+	} while ($row = mysqli_fetch_array($sql));
+	$rowall = '';
+	for ($i = 0; $i < count($rows); $i++) {
+		$combo = $rows[$i][0] + 1;
+		$sql = mysqli_query($conn, "select id_in_wk from combo where id=$combo");
+		$row = mysqli_fetch_array($sql);
+		$num = $row[0];
+		$rowall = $rowall . $num . ';';
 	}
-	$rowall = $rowall . $rows[$i][$j] . ';';
-}
 
-echo json_encode($rowall);
+	echo json_encode($rowall);
+} else {
+	echo json_encode("success_empty");
+}

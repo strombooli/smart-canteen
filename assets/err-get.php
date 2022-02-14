@@ -53,7 +53,8 @@ $rowall = '';
 for ($i = 0; $i < count($rows); $i++) {
 	$rowall = $rowall . $rows[$i][1] . ',';
 	$rowall = $rowall . $rows[$i][2] . ',';
-	$rowall = $rowall . $rows[$i][3] . ';';
+	$rowall = $rowall . $rows[$i][3] . ',';
+	$rowall = $rowall . $rows[$i][4] . ';';
 }
 
 echo json_encode($rowall);

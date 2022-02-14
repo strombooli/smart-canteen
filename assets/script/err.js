@@ -8,6 +8,7 @@ var errModel =
 	"<div class=\"col-1\">ERRID</div>" +
 	"<div class=\"col\">TIME</div>" +
 	"<div class=\"col\">CODE</div>" +
+	"<div class=\"col\">PATH</div>" +
 	"<div class=\"col\">USER</div>" +
 	"</li>" +
 	"</ul>" +
@@ -28,7 +29,8 @@ $(function () {
 				em = em.replace(/ERRID/g, (i + 1).toString());
 				em = em.replace(/TIME/g, err[i][0]);
 				em = em.replace(/CODE/g, err[i][1]);
-				if (err[i][2] !== "") em = em.replace(/USER/g, err[i][2]);
+				em = em.replace(/PATH/g, err[i][2]);
+				if (err[i][3] !== "") em = em.replace(/USER/g, err[i][3]);
 				else em = em.replace(/USER/g, "未登录");
 				errAll += em;
 			}

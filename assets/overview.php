@@ -35,6 +35,8 @@ if ($pwdnum != $pass) {
 
 
 
+$wkid = $_POST["wkid"];
+
 $sql1 = mysqli_query($conn, "select count(*) from rule");
 $row1 = mysqli_fetch_array($sql1);
 $num1 = $row1[0];
@@ -59,7 +61,7 @@ $sql6 = mysqli_query($conn, "select count(*) from dish where typ=3 and onsel=1")
 $row6 = mysqli_fetch_array($sql6);
 $num6 = $row6[0];
 
-$sql7 = mysqli_query($conn, "select count(*) from combo");
+$sql7 = mysqli_query($conn, "select count(*) from combo where wk_id='$wkid'");
 $row7 = mysqli_fetch_array($sql7);
 $num7 = $row7[0];
 

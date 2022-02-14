@@ -35,7 +35,13 @@ if ($pwdnum != $pass) {
 
 
 
-$sql  = mysqli_query($conn, "select * from combo");
+$wkid = $_POST["wkid"];
+$sql = mysqli_query($conn, "select count(*) from combo where wk_id='$wkid'");
+$row = mysqli_fetch_array($sql);
+$num = $row[0];
+if(!$num) return; 
+
+$sql = mysqli_query($conn, "select * from combo where wk_id='$wkid'");
 
 $i = 0;
 $row = mysqli_fetch_array($sql);
@@ -45,7 +51,7 @@ do {
 } while ($row = mysqli_fetch_array($sql));
 $rowall = '';
 for ($i = 0; $i < count($rows); $i++) {
-	for ($j = 0; $j <= 6; $j++) {
+	for ($j = 0; $j <= 7; $j++) {
 		$rowall = $rowall . $rows[$i][$j] . ',';
 	}
 	$rowall = $rowall . $rows[$i][$j] . ';';

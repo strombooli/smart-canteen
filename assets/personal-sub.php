@@ -6,7 +6,7 @@ $utf = mysqli_query($conn, "set names utf8");
 
 
 
-$MAXLVL = 2;
+$MAXLVL = 6;
 $cook = $_COOKIE["acc"];
 $cook_arr = explode("@", $cook);
 $user = $cook_arr[0];
@@ -35,16 +35,9 @@ if ($pwdnum != $pass) {
 
 
 
-$wkid = $_POST["wkid"];
 $sel = $_POST["sel"];
-$all = $_POST["all"];
-$sel_arr = explode(';',$sel);
 
-for ($i = 0; $i < count($sel_arr); $i++) {
-	$sel_sin_arr = explode(',',$sel_arr[$i]);
-	list($rule_id, $rice, $dish1, $dish2, $dish3, $dish4, $soup) = $sel_sin_arr;
-	mysqli_query($conn, "insert into combo(wk_id,rule_id,rice,dish1,dish2,dish3,dish4,soup,lft,id_in_wk) values('$wkid','$rule_id','$rice','$dish1','$dish2','$dish3','$dish4','$soup','$all','$i')");
-}
+mysqli_query($conn, "update user set rule='$sel' where name='$user'");
 
 if (false) {
 	echo json_encode('err');

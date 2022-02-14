@@ -6,7 +6,7 @@ $utf = mysqli_query($conn, "set names utf8");
 
 
 
-$MAXLVL = 2;
+$MAXLVL = 6;
 $cook = $_COOKIE["acc"];
 $cook_arr = explode("@", $cook);
 $user = $cook_arr[0];

@@ -2,17 +2,17 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>个性食堂 - 菜品管理 - 规则配置</title>
-	<link href="../assets/img/favicon.png" rel="shortcut icon">
+	<title>个性食堂 - 个性设置</title>
+	<link href="./assets/img/favicon.png" rel="shortcut icon">
 	<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 	<meta content="text/html;charset=UTF-8" http-equiv="Content-type">
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1" name="viewport">
 	<meta content="" name="keywords">
 	<meta content="" name="description">
-	<link href="../assets/layout/common.min.css" rel="stylesheet">
-	<link href="../assets/layout/all.min.css" rel="stylesheet">
-	<link href="../assets/layout/h5.css" rel="stylesheet">
+	<link href="./assets/layout/common.min.css" rel="stylesheet">
+	<link href="./assets/layout/all.min.css" rel="stylesheet">
+	<link href="./assets/layout/h5.css" rel="stylesheet">
 
 	<style>
 		.header-wrapper {
@@ -152,7 +152,7 @@
 						<div class="viewport">
 							<div
 								class="header shadow-sm px-3 d-flex d-flex justify-content-between align-items-center text-center">
-								<h5>规则配置</h5>
+								<h5>个性设置</h5>
 							</div>
 						</div>
 					</div>
@@ -192,32 +192,27 @@
 						<div class="viewport">
 							<div class="bg-light border-top">
 								<div class="p-2 border-top">
-									温馨提示：数值代表该营养素的权重。例如0代表不考虑该营养素，-1代表越多越好。若想删除一条规则，请全部设置为0。<br>
-									<span class="btn btn-block btn-green" style="margin-top: 0.3rem"
-										id="rul-add">新建</span>
-									<span class="btn btn-block btn-green" style="margin-top: 0.3rem"
-										id="rul-submit">确认提交</span>
-									<span class="btn btn-block btn-gray disabled"
-										style="margin-top: 0.3rem; display: none" id="rul-no">已确认</span>
+									温馨提示：数值代表该营养素的权重。例如0代表不考虑该营养素，-1代表越多越好，1代表越少越好。<br>
+									<span class="btn btn-block btn-green" style="margin-top: 0.3rem" id="rul-submit">提交</span>
 								</div>
 							</div>
 							<div class="footer shadow-sm d-flex justify-content-around text-center">
-								<a class="focus" data-nav="app" href="../index.html">
+								<a class="focus" data-nav="app" href="./index.html">
 									<i class="fa fa-cubes footer-icon"></i>
 									<br>
 									应用
 								</a>
-								<a data-nav="pol" href="../updlog.html">
+								<a data-nav="pol" href="./updlog.html">
 									<i class="fa fa-bookmark footer-icon"></i>
 									<br>
 									更新日志
 								</a>
-								<a data-nav="help" href="../help.html">
+								<a data-nav="help" href="./help.html">
 									<i class="fa fa-question-circle footer-icon"></i>
 									<br>
 									帮助
 								</a>
-								<a data-nav="mine" href="../my.html">
+								<a data-nav="mine" href="./my.html">
 									<i class="fa fa-user footer-icon"></i>
 									<br>
 									我的
@@ -229,8 +224,8 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../assets/script/global.js"></script>
-	<script type="text/javascript" src="../assets/script/rule.js"></script>
+	<script type="text/javascript" src="./assets/script/global.js"></script>
+	<script type="text/javascript" src="./assets/script/personal.js"></script>
 	<script>
 		document.getElementById("gAlertButton").onclick = gAlertClose;
 		document.getElementById("gAlertModal").onclick = gAlertClose;

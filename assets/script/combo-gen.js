@@ -299,7 +299,7 @@ $(function () {
 			$.ajax({
 				url: '../assets/sel-sub.php',
 				type: 'post',
-				data: { sel: sel_sub },
+				data: { sel: sel_sub, wkid: getThisWk() + 1, all: 100 },
 				dataType: 'json',
 				async: false,
 				success: function (result) {
@@ -335,7 +335,7 @@ $(function () {
 		function cbcnt(n) {
 			let cnt = 0;
 			for (let i = 0; i < combo.length; i++) {
-				if (parseInt(combo[i][1]) === n) cnt++;
+				if (parseInt(combo[i][2]) === n) cnt++;
 			}
 			return cnt;
 		}
@@ -357,6 +357,7 @@ $(function () {
 		$.ajax({
 			url: '../assets/combo-get.php',
 			type: 'post',
+			data: { wkid: getThisWk() + 1 },
 			dataType: 'json',
 			success: function (result) {
 				for (let i = 0; i < result.split(";").length - 1; i++) {
@@ -365,24 +366,24 @@ $(function () {
 				for (let i = 0; i < combo.length; i++) {
 					let ruleAdd = false;
 					if (i > 0) {
-						if (parseInt(combo[i][1]) !== parseInt(combo[i - 1][1])) ruleAdd = true;
+						if (parseInt(combo[i][2]) !== parseInt(combo[i - 1][2])) ruleAdd = true;
 					}
 					else ruleAdd = true;
 
 					if (ruleAdd) {
 						let rtdm = ruleTitleDisplayModel;
-						rtdm = rtdm.replace(/RULEID/g, combo[i][1]);
-						rtdm = rtdm.replace(/CBCNT/g, cbcnt(parseInt(combo[i][1])));
+						rtdm = rtdm.replace(/RULEID/g, combo[i][2]);
+						rtdm = rtdm.replace(/CBCNT/g, cbcnt(parseInt(combo[i][2])));
 						comboDisplayAll += rtdm;
 					}
 					let cbdm = comboDisplayModel;
 					cbdm = cbdm.replace(/ID/g, (i + 1).toString());
-					cbdm = cbdm.replace(/MAIN/g, dishDisplay[combo[i][2]][1]);
-					cbdm = cbdm.replace(/DISH1/g, dishDisplay[combo[i][3]][1]);
-					cbdm = cbdm.replace(/DISH2/g, dishDisplay[combo[i][4]][1]);
-					cbdm = cbdm.replace(/DISH3/g, dishDisplay[combo[i][5]][1]);
-					cbdm = cbdm.replace(/DISH4/g, dishDisplay[combo[i][6]][1]);
-					cbdm = cbdm.replace(/SOUP/g, dishDisplay[combo[i][7]][1]);
+					cbdm = cbdm.replace(/MAIN/g, dishDisplay[combo[i][3]][1]);
+					cbdm = cbdm.replace(/DISH1/g, dishDisplay[combo[i][4]][1]);
+					cbdm = cbdm.replace(/DISH2/g, dishDisplay[combo[i][5]][1]);
+					cbdm = cbdm.replace(/DISH3/g, dishDisplay[combo[i][6]][1]);
+					cbdm = cbdm.replace(/DISH4/g, dishDisplay[combo[i][7]][1]);
+					cbdm = cbdm.replace(/SOUP/g, dishDisplay[combo[i][8]][1]);
 					comboDisplayAll += cbdm;
 				}
 				document.getElementById("sel-list").innerHTML = comboDisplayAll;

@@ -11,11 +11,13 @@ var warnModel =
 	"<li class=\"py-2\">" +
 	"<div class=\"row no-gutters\">" +
 	"<div class=\"col-1\">WARNID</div>" +
-	"<div class=\"col-1\">TITLE</div>" +
-	"<div class=\"col-2\">START</div>" +
-	"<div class=\"col-2\">END</div>" +
-	"<div class=\"col-1 CLR\">STAT</div>" +
-	"<div class=\"col\">CONTENT</div>" +
+	"<div class=\"col-3\" style=\"padding-left: 0.2rem; padding-right: 0.2rem\">TITLE</div>" +
+	"<div class=\"col-2\" style=\"padding-left: 0.2rem; padding-right: 0.2rem\">START</div>" +
+	"<div class=\"col-2\" style=\"padding-left: 0.2rem; padding-right: 0.2rem\">END</div>" +
+	"<div class=\"col-2 CLR\" style=\"padding-left: 0.2rem; padding-right: 0.2rem\">STAT</div>" +
+	"<div class=\"col-1\">" +
+	"<span class=\"btn btn-block btn-green\" style=\"padding: 0; height: 1.4rem; font-size: 0.9rem\" onclick=\"showCont(ID);\">查看</span>" +
+	"</div>" +
 	"<div class=\"col-1\">" +
 	"<span class=\"btn btn-block btn-green\" style=\"padding: 0; height: 1.4rem; font-size: 0.9rem\" onclick=\"showRng(ID);\">查看</span>" +
 	"</div></div>" +
@@ -46,6 +48,9 @@ function toggle(n) {
 function showRng(n) {
 	gAlert(warn[n][5]);
 }
+function showCont(n) {
+	gAlert(warn[n][4]);
+}
 
 $(function () {
 	$.ajax({
@@ -57,16 +62,16 @@ $(function () {
 			let warnIdMax = 0;
 			for (let i = 0; i < result.split(";").length - 1; i++) {
 				warn[i] = result.split(";")[i].split(",");
-				warnIdMax = Math.max(warnIdMax, warn[i][0]);
+				warnIdMax = Math.max(warnIdMax, parseInt(warn[i][0]));
 				let wm = warnModel;
 				wm = wm.replace(/WARNID/g, warn[i][0]);
 				wm = wm.replace(/ID/g, (parseInt(warn[i][0]) - 1).toString());
 				wm = wm.replace(/TITLE/g, warn[i][1]);
-				let warnStart = new Date(warn[i][2]);
-				let warnEnd = new Date(warn[i][3]);
+				let warnStart = new Date(warn[i][2].replace(/-/g, "/"));
+				let warnEnd = new Date(warn[i][3].replace(/-/g, "/"));
 				let now = new Date();
-				wm = wm.replace(/START/g, warnStart.toLocaleString());
-				wm = wm.replace(/END/g, warnEnd.toLocaleString());
+				wm = wm.replace(/START/g, warnStart.toLocaleString().slice(5));
+				wm = wm.replace(/END/g, warnEnd.toLocaleString().slice(5));
 				if (now <= warnStart) {
 					wm = wm.replace(/STAT/g, "未开始");
 					wm = wm.replace(/CLR/g, "");
@@ -93,8 +98,12 @@ $(function () {
 		let warnEnd = document.getElementById("warn-end").value;
 		let warnContent = document.getElementById("warn-content").value;
 
-		let startTime = new Date(warnStart);
-		let endTime = new Date(warnEnd);
+		if (warnTitle == "" || warnStart == "" || warnEnd == "" || warnContent == "" || toggleAll == "") {
+			gAlert("不能为空。");
+			return;
+		}
+		let startTime = new Date(warnStart.replace(/-/g, "/"));
+		let endTime = new Date(warnEnd.replace(/-/g, "/"));
 		let now = new Date();
 		if (startTime >= endTime) {
 			gAlert("结束时间不得早于开始时间。");

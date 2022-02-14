@@ -18,7 +18,7 @@ $(function () {
 				async: false,
 				success: function (result) {
 					if (result == 'err_verify') {
-						gAlert('用户名或密码错误');
+						alert('用户名或密码错误');
 					} else if (result == 'success') {
 						let coo_name = encodeURI(document.getElementById("l-name").value);
 						let coo_pwd = document.getElementById("l-pwd").value;
@@ -36,23 +36,23 @@ $(function () {
 						let cookie = "acc=" + coo_name + "@" + coo_pwd + ";expires=" + coo_expire;
 						document.cookie = cookie;
 						$.ajax({
-							url: './log.php',
+							url: './assets/log.php',
 							type: 'post',
 							data: { name: coo_name, time: getCurrentTime(), inout: 1 },
 							dataType: 'json',
 							async: false,
 							success: function (result) {
-								if (result !== 'success') throwError("ERR_LOG_REP");
+								if (result !== 'success') alert("核心故障：ERR_LOG_REP");
 							},
 							error: function () {
-								throwError("ERR_LOG_PHP");
+								alert("核心故障：ERR_LOG_PHP");
 							}
 						})
 						goIndex();
 					}
 				},
 				error: function () {
-					throwError("ERR_USR_PHP");
+					alert("核心故障：ERR_USR_PHP");
 				}
 			})
 		} return false;
@@ -64,9 +64,12 @@ $(function () {
 			$id_num = $('#id').val(),
 			$usr_typ = $('#usr_typ').val();
 		if ($username == '' || $pwd == '' || $gender == '' || $id_num == '' || $usr_typ == '') {
-			gAlert("不能为空");
+			alert("不能为空");
 			return false;
-		} else {
+		} else if ($pwd.length < 6) {
+			alert("密码太短");
+		}
+		else {
 			var datas = {
 				username: $username,
 				pwd: $pwd,
@@ -82,14 +85,14 @@ $(function () {
 				async: false,
 				success: function (result) {
 					if (result == "err_repeat") {
-						gAlert("该用户名或身份证已存在");
+						alert("该用户名或身份证已存在");
 					} else if (result == 'success') {
-						gAlert("注册成功");
+						alert("注册成功");
 						$("#reg").hide();
 						$("#login").show();
 					}
 					else {
-						throwError("ERR_REG_PHP");
+						alert("核心故障：ERR_REG_PHP");
 					}
 				}
 			})

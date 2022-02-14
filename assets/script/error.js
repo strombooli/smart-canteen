@@ -1,6 +1,6 @@
 let errTyp = [401, 404];
 let errPrompt = ["访问被拒绝", "页面建设中"];
-let errAlert = [["请使用本地连接"], []];
+let errAlert = [["请使用本地连接", "无权限访问"], []];
 
 let defaultErrTyp = 1;
 let defaultErrSon = -1;

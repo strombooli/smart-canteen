@@ -18,6 +18,7 @@ $(function () {
 	$.ajax({
 		url: '../assets/overview.php',
 		type: 'post',
+		data: { wkid: getThisWk() + 1 },
 		dataType: 'json',
 		async: false,
 		success: function (result) {
@@ -37,15 +38,15 @@ $(function () {
 			if (parseInt(overviewArray[3]) <= 20) document.getElementById("overview-upload-warn").innerText += "素食过少；";
 			if (parseInt(overviewArray[4]) <= 20) document.getElementById("overview-upload-warn").innerText += "荤食过少；";
 			if (parseInt(overviewArray[5]) <= 10) document.getElementById("overview-upload-warn").innerText += "汤类过少；";
-			if ((Math.max(parseInt(overviewArray[3]),parseInt(overviewArray[4]))-Math.min(parseInt(overviewArray[3]),parseInt(overviewArray[4])))/Math.min(parseInt(overviewArray[3]),parseInt(overviewArray[4])) > 0.6) document.getElementById("overview-upload-warn").innerText += "荤素数量差别过大；";
-			if (parseInt(overviewArray[2]) > 3 && parseInt(overviewArray[3]) > 20 && parseInt(overviewArray[4]) > 20 && parseInt(overviewArray[5]) > 10 && (Math.max(parseInt(overviewArray[3]),parseInt(overviewArray[4]))-Math.min(parseInt(overviewArray[3]),parseInt(overviewArray[4])))/Math.min(parseInt(overviewArray[3]),parseInt(overviewArray[4])) <= 0.6) {
+			if ((Math.max(parseInt(overviewArray[3]), parseInt(overviewArray[4])) - Math.min(parseInt(overviewArray[3]), parseInt(overviewArray[4]))) / Math.min(parseInt(overviewArray[3]), parseInt(overviewArray[4])) > 0.6) document.getElementById("overview-upload-warn").innerText += "荤素数量差别过大；";
+			if (parseInt(overviewArray[2]) > 3 && parseInt(overviewArray[3]) > 20 && parseInt(overviewArray[4]) > 20 && parseInt(overviewArray[5]) > 10 && (Math.max(parseInt(overviewArray[3]), parseInt(overviewArray[4])) - Math.min(parseInt(overviewArray[3]), parseInt(overviewArray[4]))) / Math.min(parseInt(overviewArray[3]), parseInt(overviewArray[4])) <= 0.6) {
 				document.getElementById("overview-upload-warn").className = document.getElementById("overview-upload-warn").className.replace("text-red", "text-green");
 				document.getElementById("overview-upload-warn").innerText = "一切正常。";
 			}
 
 			document.getElementById("overview-combo").innerText = "共有" + overviewArray[6] + "种套餐。";
 			if (parseInt(overviewArray[7]) < 6) document.getElementById("overview-combo-warn").innerText += "部分规则套餐过少；";
-			if (parseInt(overviewArray[8]) >10) document.getElementById("overview-combo-warn").innerText += "部分规则套餐过多；";
+			if (parseInt(overviewArray[8]) > 10) document.getElementById("overview-combo-warn").innerText += "部分规则套餐过多；";
 			if (parseInt(overviewArray[7]) >= 6 && parseInt(overviewArray[8]) <= 10) {
 				document.getElementById("overview-combo-warn").className = document.getElementById("overview-combo-warn").className.replace("text-red", "text-green");
 				document.getElementById("overview-combo-warn").innerText = "一切正常。";
@@ -55,7 +56,7 @@ $(function () {
 			throwError("ERR_PHSG_PHP");
 		}
 	})
-	$("#overview-confirm").click(function(){
+	$("#overview-confirm").click(function () {
 		$.ajax({
 			url: '../assets/phs-sub.php',
 			type: 'post',

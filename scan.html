@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="UTF8">
+
+<head>
+	<meta charset="utf-8">
+	<title>我的预订</title>
+	<link href="./assets/img/favicon.png" rel="shortcut icon">
+	<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<meta content="text/html;charset=UTF-8" http-equiv="Content-type">
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<link href="./assets/layout/common.min.css" rel="stylesheet">
+	<link href="./assets/layout/all.min.css" rel="stylesheet">
+	<link href="./assets/layout/h5.css" rel="stylesheet">
+
+	<style type="text/css">
+		.verify-msg {
+			font-size: 3em;
+			font-weight: 700;
+			margin-top: 50px;
+			text-align: center
+		}
+	</style>
+
+	<style>
+		.body-wrapper {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+			padding: 0;
+			z-index: 500
+		}
+
+		.content-bg {
+			background-color: #fff;
+			padding-bottom: 10em;
+			height: 100vh;
+			overflow-y: scroll;
+			overflow-x: hidden
+		}
+
+		/*.body-container {*/
+		/*    padding-top: 3.8em*/
+		/*}*/
+	</style>
+
+	<style>
+		.order-panel {
+			width: 25em;
+			padding: 1em;
+			border: solid 1px #ccc;
+			text-align: center;
+			margin: auto;
+			color: #333
+		}
+
+		.order-name {
+			width: 4.8em;
+			padding: 2px 4px;
+			color: #333;
+			font-size: 2em;
+			font-weight: 700
+		}
+
+		.img-qrcode {
+			width: 9.6em;
+			height: 9.6em;
+			justify-content: center;
+			align-items: center;
+			display: flex;
+		}
+
+		.user-name {
+			font-size: 2.4em;
+			margin-top: .2em
+		}
+
+		.ticket-body {
+			padding-right: 1em
+		}
+
+		.order-area {
+			margin: -.3em 0;
+			font-size: 10em;
+			font-weight: 700
+		}
+
+		.order-area-tail {
+			font-size: .2em
+		}
+
+		.order-location {
+			margin-top: .75em;
+			font-size: 1.8em;
+			line-height: 2em;
+			font-weight: 700
+		}
+	</style>
+</head>
+
+<body>
+	<div class="modal fade global-alert" id="gAlertModal" style="display: none;">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<button class="close float-right" id="gAlertButton" type="button">
+					<span aria-hidden="true">×</span>
+				</button>
+				<div class="text-center font-weight-bold" id="gAlertMsg"></div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade" id="gAlertBack" style="display: none;"></div>
+	<div id="gApp">
+		<div class="body-wrapper">
+			<div class="container px-0">
+				<div class="row no-gutters">
+					<div class="col-xl-6 offset-xl-3">
+						<div class="viewport">
+							<div class="content-bg">
+								<div class="p-3 text-right"><a><i class="fa fa-times fa-2x"></i></a></div>
+								<div id="order-panel" class="order-panel">
+									<div class="d-flex justify-content-between">
+										<div>
+											<div id="order-name" class="order-name"></div>
+											<img class="img-qrcode border" id="qrc">
+											<div class="user-name text-center">
+												<span id="user-name"></span>
+											</div>
+										</div>
+										<div class="ticket-body">
+											<div id="week-id" class="order-area">
+												<span class="order-area-tail">周</span>
+											</div>
+											<div class="order-location">
+												<span>
+													<span id="week-start"></span><br>
+													<span id="week-end"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h2 class="verify-msg" id="msg">
+
+								</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <script type="text/javascript">
+		var ratio = 3.8 * (document.getElementsByClassName("order-panel")[0].resize || 100) / 100;
+		QRCode.toDataURL(url, { errorCorrectionLevel: "M" }, function (rtt, url) {
+			document.getElementById("qrc").src = url;
+		})
+		document.getElementsByClassName("order-panel")[0].style = "font-size: " + ratio + "vw !important;";
+		if (getTo().yr !== yr || getTo().mo !== mo || getTo().da !== da) {
+			document.getElementById("msg").innerHTML = info[2];
+		} else {
+			if (tkp !== 0) {
+				if (checkScan()) {
+					document.getElementById("msg").innerHTML = info[3];
+				} else {
+					document.getElementById("msg").innerHTML = info[1];
+					writeScan();
+				}
+			}
+		}
+	</script> -->
+	<script type="text/javascript" src="./assets/script/qrcode.min.js"></script>
+	<script type="text/javascript" src="./assets/script/global.js"></script>
+	<script type="text/javascript" src="./assets/script/scan.js"></script>
+	<script>
+		document.getElementById("gAlertButton").onclick = gAlertClose;
+		document.getElementById("gAlertModal").onclick = gAlertClose;
+	</script>
+</body>
+
+</html>

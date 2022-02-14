@@ -34,15 +34,20 @@ if ($pwdnum != $pass) {
 }
 
 
+$sql = mysqli_query($conn, "select id from user where name = '$user'");
+$row = mysqli_fetch_array($sql);
+$userid = $row[0];
 
 $ord = $_POST["ord"];
-$userid = $_POST["usrid"];
+$wkid = $_POST["wkid"];
 
 $ord_arr = explode(';', $ord);
 
 for ($i = 0; $i < count($ord_arr); $i++) {
 	$combo = $ord_arr[$i];
-	mysqli_query($conn, "insert into ord(user_id,combo_id) values('$userid','$combo')");
+	mysqli_query($conn, "insert into ord(day,user_id,combo_id,wk_id) values('$i','$userid','$combo','$wkid')");
+	$combo = $combo - 1;
+	mysqli_query($conn, "update combo set lft = lft-1 where id=$combo");
 }
 
 if (false) {

@@ -26,7 +26,7 @@ function throwError(s) {
 	$.ajax({
 		url: window.location.origin + '/assets/error.php',
 		type: 'post',
-		data: { code: s },
+		data: { code: s, path: getPath() },
 		dataType: 'json',
 		async: false,
 		success: function (result) {
@@ -38,13 +38,29 @@ function throwError(s) {
 	})
 }
 
+function jumpError(s) {
+	window.location.href = "./error.html?" + s;
+}
+
+let pathArray =
+	["index.html", "updlog.html", "help.html", "my.html",
+		"manage.html", "combo-gen.html", "overview.html", "rule.html", "upload.html",
+		"order.html", "sql.html", "settings.html", "err.html", "warn.html"];
+let maxPermArray =
+	[6, 6, 6, 6,
+		2, 2, 2, 2, 2,
+		6, 1, 6, 2, 2];
+for (let i = 0; i < pathArray.length; i++) {
+	if (getPath() == pathArray[i] && getInfo("usr_typ") > maxPermArray[i]) jumpError("401.01");
+}
+
 // warning functions
 
 function showWarning(s) {
 	let newElement = document.createElement("div");
 	newElement.className = "alert alert-warning";
 	newElement.style = "margin-bottom: 0.3rem";
-	newElement.innerText = s;
+	newElement.innerHTML = s;
 	document.getElementsByClassName("content-bg")[0].firstElementChild.insertBefore(newElement, document.getElementsByClassName("content-bg")[0].firstElementChild.firstElementChild);
 }
 
@@ -108,7 +124,15 @@ function sleep(numberMillis) {
 // login functions
 
 function pathVerify(s) {
-	return window.location.pathname.split('/')[window.location.pathname.split('/').length - 1] === s;
+	let path = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+	if (path === "" && s === "index.html") return true;
+	return path === s;
+}
+
+function getPath() {
+	let path = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+	if (path === "") return "index.html";
+	else return path;
 }
 
 function cooVerify() {
@@ -132,13 +156,13 @@ function cooVerify() {
 }
 
 function goIndex() {
-	if (window.location.href.split('login.html?p=/').length == 2) window.location.href = './' + window.location.href.split('login.html?p=/')[1];
-	else window.location.href = './index.html';
+	if (window.location.href.split('login.html?p=/').length == 2) window.location.href = window.location.origin + '/' + window.location.href.split('login.html?p=/')[1];
+	else window.location.href = window.location.origin + '/index.html';
 }
 
 function goLogin() {
 	if (pathVerify("login.html")) return;
-	window.location.href = './login.html?p=' + window.location.href.substring(window.location.href.lastIndexOf(window.location.pathname), window.location.href.length);
+	window.location.href = window.location.origin + '/login.html?p=' + window.location.href.substring(window.location.href.lastIndexOf(window.location.pathname), window.location.href.length);
 }
 
 if (!cooVerify() && !pathVerify("login.html")) goLogin();
@@ -158,7 +182,7 @@ function getName() {
 function getUserInfo(req, reqtyp, reptyp) {
 	let rep = "";
 	$.ajax({
-		url: window.location.origin + '/assets/user-get.php',
+		url: window.location.origin + '/assets/user-get-all.php',
 		type: 'post',
 		data: { req: req, reqtyp: reqtyp, reptyp: reptyp },
 		dataType: 'json',
@@ -201,4 +225,10 @@ let typNameZhCn = ["根用户", "管理员", "运维", "食堂人员", "普通�
 function getCurrentTime() {
 	d = new Date();
 	return d.getFullYear() + "/" + (parseInt(d.getMonth()) + 1).toString() + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+}
+
+var firstWkStart = 1644163201000;
+function getThisWk() {
+	d = new Date();
+	return Math.round((d.getTime() - firstWkStart) / 604800000);
 }

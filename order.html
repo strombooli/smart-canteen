@@ -62,7 +62,7 @@
 			font-size: 9em;
 			font-weight: 700
 		}
-		
+
 		.order-area-tail {
 			font-size: .2em
 		}
@@ -264,28 +264,21 @@
 									<div class="order-panel">
 										<div class="d-flex justify-content-between">
 											<div>
-												<div class="order-name">AB^DH</div>
+												<div id="order-name" class="order-name"></div>
 												<img class="img-qrcode border" id="qrc">
-												<script>
-
-												</script>
 												<div class="user-name text-center">
-													<span>root</span>
+													<span id="user-name"></span>
 												</div>
 											</div>
 											<div class="ticket-body">
-												<div class="order-area">
-													20<span class="order-area-tail">周</span>
+												<div id="week-id" class="order-area">
+													<span class="order-area-tail">周</span>
 												</div>
 												<div class="order-location">
-													<span id="loc">
-														<span>
-															<span>
-																1/1 周一
-															</span>
-														</span>
+													<span>
+														<span id="week-start"></span><br>
+														<span id="week-end"></span>
 													</span>
-													<div>食堂一楼</div>
 												</div>
 											</div>
 										</div>
@@ -340,6 +333,7 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="./assets/script/qrcode.min.js"></script>
 	<script type="text/javascript" src="./assets/script/global.js"></script>
 	<script type="text/javascript" src="./assets/script/order.js"></script>
 	<script>
