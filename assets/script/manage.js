@@ -28,7 +28,7 @@ $(function () {
 		success: function (result) {
 			done = result.split(";").slice(0, 4);
 			let now = new Date();
-			let thisWeekStart = Math.floor(new Date().getTime() / 604800000) * 604800000 - 8 * 60 * 60 * 1000 - 3 * 24 * 60 * 60 * 1000;
+			let thisWeekStart = Math.floor((new Date().getTime() - 8 * 60 * 60 * 1000 + 4 * 24 * 60 * 60 * 1000)/ 604800000) * 604800000 - 8 * 60 * 60 * 1000;
 			for (let i = 0; i < 4; i++) {
 				let startElem = document.getElementById("phs-" + i.toString() + "-s");
 				let startTime = new Date(thisWeekStart + timeStart[i] * 3600 * 1000);

@@ -144,7 +144,7 @@ function cooVerify() {
 		type: 'post',
 		dataType: 'json',
 		async: false,
-		data: { username: coo_name, pwd: coo_pwd },
+		data: { username: decodeURI(coo_name), pwd: coo_pwd },
 		success: function (result) {
 			if (result === 'success') cooVerRes = true;
 		},
@@ -166,7 +166,6 @@ function goLogin() {
 }
 
 if (!cooVerify() && !pathVerify("login.html")) goLogin();
-if (cooVerify() && pathVerify("login.html")) goIndex();
 
 function delCookie() {
 	let d = new Date();
@@ -177,7 +176,7 @@ function delCookie() {
 // User functions
 
 function getName() {
-	return document.cookie.split('@')[0].split('acc=')[1];
+	return decodeURI(document.cookie.split('@')[0].split('acc=')[1]);
 }
 function getUserInfo(req, reqtyp, reptyp) {
 	let rep = "";
@@ -217,7 +216,7 @@ function getInfo(reptyp) {
 	return rep;
 }
 
-let typName = ["ROOT", "SUPERADMIN", "ADMIN", "HELPER", "USER", "TRIAL", "TEMP", "BANNED"];
+let typName = ["ROOT", "SUPERADMIN", "ADMIN", "HELPER", "USER", "TRIAL", "TMP", "BANNED"];
 let typNameZhCn = ["根用户", "管理员", "运维", "食堂人员", "普通用户", "试用用户", "测试账户", "封禁账户"];
 
 // Time functions

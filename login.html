@@ -33,7 +33,7 @@
 		id="header">
 		<h5 class="my-0 mr-md-auto font-weight-normal text-dark">
 			<i class="fa fa-shapes"></i>
-			个性食堂 Dev 1.3.0
+			个性食堂 Dev 1.3.1
 		</h5>
 		<nav class="my-2 my-md-0 mr-md-3 d-flex align-items-center"></nav>
 	</div>
@@ -48,21 +48,30 @@
 								<label class="sr-only">姓名</label>
 								<input autofocus="autofocus" class="form-control" id="name" placeholder="姓名"
 									required="required" type="text">
+								<label class="sr-only">密码</label>
+								<input class="form-control" id="pwd" placeholder="密码" required="required"
+									type="password">
 								<label class="sr-only">性别</label>
 								<select autofocus="autofocus" class="form-control" id="gdr" placeholder="性别"
 									required="required" type="text">
+									<option value="-1">请选择性别</option>
 									<option value="0">男</option>
 									<option value="1">女</option>
 								</select>
 								<label class="sr-only">身份证号</label>
-								<input class="form-control" id="id" placeholder="身份证号码" required="required"
-									type="password">
-								<label class="sr-only">密码</label>
-								<input class="form-control" id="pwd" placeholder="密码" required="required"
-									type="password">
-								<label class="sr-only">用户类别</label>
-								<input class="form-control" id="usr_typ" placeholder="用户类别" required="required"
-									type="text">
+								<input class="form-control" id="id" placeholder="身份证号码" required="required" type="text">
+								<select autofocus="autofocus" class="form-control" id="usr_typ" placeholder="用户类别"
+									required="required" type="text">
+									<option value="-1">请选择用户类别</option>
+									<option value="0">根用户 ROOT</option>
+									<option value="1">管理员 SUPERADMIN</option>
+									<option value="2">运维 ADMIN</option>
+									<option value="3">食堂人员 HELPER</option>
+									<option value="4">普通用户 USER</option>
+									<option value="5">试用用户 TRIAL</option>
+									<option value="6">测试用户 TMP</option>
+									<option value="7">封禁帐户 BANNED</option>
+								</select>
 							</div>
 							<div class="form-group">
 								<button class="btn btn-lg btn-green btn-block" id="submit" type="submit">注册</button>
@@ -76,7 +85,7 @@
 						</div>
 					</div>
 				</form>
-				<form id='login' method='post'>
+				<form id='login'>
 					<h4 class="text-center">登录</h4>
 					<div class="card shadow-sm mt-3" style="width: 24em;">
 						<div class="card-body">
@@ -89,11 +98,11 @@
 									type="password">
 							</div>
 							<div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" id="remember" type="checkbox" value="true">
-                                    <label class="form-check-label" for="remember">记住我</label>
-                                </div>
-                            </div>
+								<div class="form-check">
+									<input class="form-check-input" id="remember" type="checkbox" value="true">
+									<label class="form-check-label" for="remember">记住我</label>
+								</div>
+							</div>
 							<div class="form-group">
 								<button class="btn btn-lg btn-green btn-block" id="l-submit" type="submit">登录</button>
 							</div>
@@ -109,7 +118,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="./assets/script/global.js"></script>
 	<script type="text/javascript" src="./assets/script/login.js"></script>
 </body>
 
