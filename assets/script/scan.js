@@ -1,50 +1,47 @@
-
-
-
-
-
-
+let wkid = parseInt(window.location.search.substring(1, 4), 16).toString(10);
+let stud = parseInt(window.location.search.substring(4), 16).toString(10);
+function doPrompt(n, str) {
+	let scanClr = ["text-red", "text-red", "text-success", "text-red", "text-muted"];
+	let scanPrompt = ["已有核验记录", "核验失败", "核验成功", "非本周有效餐票", "请扫描餐票！"];
+	if (n == 4) {
+		document.getElementById("msg").innerHTML = scanPrompt[4];
+		document.getElementById("msg").className += " " + scanClr[4];
+		return;
+	}
+	let success2 = -1;
+	let scannerStr = str;
+	if (n == 2) {
+		$.ajax({
+			url: './assets/scan-sub.php',
+			type: 'post',
+			data: { userid: stud, wkid: wkid, day: new Date().getDay(), time: getCurrentTime() },
+			dataType: 'json',
+			async: false,
+			success: function (result) {
+				if (result == "err_empty") success2 = 1;
+				else if (result.slice(0, 10) == "err_repeat") {
+					success2 = 0;
+					scannerStr = "<br>上次核验人：" + getUserInfo(result.slice(10), "id", "name");
+				}
+			},
+			error: function () {
+				throwError("ERR_ORDGA_PHP");
+			}
+		})
+		if (success2 != -1) {
+			doPrompt(success2, scannerStr);
+			return;
+		}
+	}
+	document.getElementById("msg").innerHTML = scanPrompt[n] + "<br><br>本次核验人：" + getInfo("name") + scannerStr;
+	document.getElementById("msg").className += " " + scanClr[n];
+}
 
 if (window.location.search == "") {
 	$("#order-panel").hide();
-	$("#verify-msg").hide();
+	doPrompt(4, "");
 }
 else {
-	let wkid = parseInt(window.location.search.substring(1, 4), 16).toString(10);
-	let stud = parseInt(window.location.search.substring(4), 16).toString(10);
-
-	function doPrompt(n, str) {
-		let scanClr = ["text-red", "text-red", "text-success", "text-red"];
-		let scanPrompt = ["已有核验记录", "核验失败", "核验成功", "非本周有效餐票"];
-		let success2 = -1;
-		let scannerStr = str;
-		if (n == 2) {
-			$.ajax({
-				url: './assets/scan-sub.php',
-				type: 'post',
-				data: { userid: stud, wkid: wkid, day: new Date().getDay(), time: getCurrentTime() },
-				dataType: 'json',
-				async: false,
-				success: function (result) {
-					if (result == "err_empty") success2 = 1;
-					else if (result.slice(0, 10) == "err_repeat") {
-						success2 = 0;
-						scannerStr = "<br>上次核验人：" + result.slice(10);
-					}
-				},
-				error: function () {
-					throwError("ERR_ORDGA_PHP");
-				}
-			})
-			if (success2 != -1) {
-				doPrompt(success2, scannerStr);
-				return;
-			}
-		}
-		document.getElementById("msg").innerHTML = scanPrompt[n] + "<br><br>本次核验人：" + getInfo("name") + scannerStr;
-		document.getElementById("msg").className += " " + scanClr[n];
-	}
-
 	if (getThisWk() != wkid || new Date().getDay() <= 0 || new Date().getDay() >= 6) {
 		doPrompt(3, "");
 		$("#order-panel").hide();

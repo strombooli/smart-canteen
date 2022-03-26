@@ -52,14 +52,18 @@ $sql = mysqli_query($conn, "select time_scan from ord where wk_id='$wkid' and us
 $row = mysqli_fetch_array($sql);
 $num = $row[0];
 if ($num != "0000-00-00 00:00:00") {
-	$sql = mysqli_query($conn, "select scanner_name from ord where wk_id='$wkid' and user_id='$userid' and day='$day'");
+	$sql = mysqli_query($conn, "select scanner_id from ord where wk_id='$wkid' and user_id='$userid' and day='$day'");
 	$row = mysqli_fetch_array($sql);
 	$num = $row[0];
 	echo json_encode("err_repeat" . $num);
 	return;
 }
 
-mysqli_query($conn, "update ord set time_scan='$time',scanner_name='$user' where wk_id='$wkid' and user_id='$userid' and day='$day'");
+$sql = mysqli_query($conn, "select id from user where name='$user'");
+$row = mysqli_fetch_array($sql);
+$num = $row[0];
+
+mysqli_query($conn, "update ord set time_scan='$time',scanner_id='$num' where wk_id='$wkid' and user_id='$userid' and day='$day'");
 
 if (false) {
 	echo json_encode("err");

@@ -34,7 +34,6 @@ if ($pwdnum != $pass) {
 }
 
 
-
 $wkid = $_POST["wkid"];
 
 $sql1 = mysqli_query($conn, "select count(*) from rule");
@@ -73,4 +72,17 @@ for ($i = 0; $i < $num1; $i++) {
 	$nummin = min($nummin, $row[0]);
 	$nummax = max($nummax, $row[0]);
 }
-echo json_encode($num1 . ";" . $num2 . ";" . $num3 . ";" . $num4 . ";" . $num5 . ";" . $num6 . ";" . $num7 . ";" . $nummin . ";" . $nummax);
+
+$sql = mysqli_query($conn, "select ordered from user");
+$i = 0;
+$row = mysqli_fetch_array($sql);
+do {
+	$rows[$i] = $row;
+	$i++;
+} while ($row = mysqli_fetch_array($sql));
+$rowall = '';
+for ($i = 0; $i < count($rows) - 1; $i++) {
+	$rowall = $rowall . $rows[$i][0] . ',';
+}
+$rowall = $rowall . $rows[count($rows) - 1][0];
+echo json_encode($num1 . ";" . $num2 . ";" . $num3 . ";" . $num4 . ";" . $num5 . ";" . $num6 . ";" . $num7 . ";" . $nummin . ";" . $nummax . ";" . $rowall);

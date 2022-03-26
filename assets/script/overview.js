@@ -51,6 +51,17 @@ $(function () {
 				document.getElementById("overview-combo-warn").className = document.getElementById("overview-combo-warn").className.replace("text-red", "text-green");
 				document.getElementById("overview-combo-warn").innerText = "一切正常。";
 			}
+
+			let overviewReset = overviewArray[9].split(',');
+			let overviewNeedReset = false;
+			document.getElementById("overview-reset").innerText = "共有" + overviewReset.length + "个用户。";
+			for (let i = 0; i < overviewReset.length; i++)
+				if (overviewReset[i] != '0') overviewNeedReset = true;
+			if (overviewNeedReset) document.getElementById("overview-reset-warn").innerText = "有订餐数据需要重置。";
+			else{
+				document.getElementById("overview-reset-warn").innerText = "一切正常。";
+				document.getElementById("overview-reset-warn").className = document.getElementById("overview-reset-warn").className.replace("text-red", "text-green");
+			}
 		},
 		error: function () {
 			throwError("ERR_PHSG_PHP");
@@ -69,6 +80,20 @@ $(function () {
 			},
 			error: function () {
 				throwError("ERR_PHSS_PHP");
+			}
+		})
+		$.ajax({
+			url: '../assets/usr-reset.php',
+			type: 'post',
+			data: { phs: "3.1" },
+			dataType: 'json',
+			async: false,
+			success: function (result_rst) {
+				if (result_rst === "success");
+				else throwError("ERR_USRR_REP");
+			},
+			error: function () {
+				throwError("ERR_USRR_PHP");
 			}
 		})
 	})

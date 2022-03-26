@@ -1,6 +1,27 @@
-if (window.location.search == "") {
-	window.location.search = "?" + getThisWk().toString();
+function jumpWk(n) {
+	window.location.search = "?" + n.toString();
 }
+
+function getWk() {
+	return parseInt(window.location.search.slice(1));
+}
+
+if (window.location.search == "") {
+	jumpWk(getThisWk());
+}
+
+if (getWk() <= 0) {
+	jumpWk(1);
+}
+if (getWk() > getThisWk()) {
+	jumpWk(getThisWk());
+}
+
+document.getElementById("title").innerText = "本周订餐（第" + getWk().toString() + "周）";
+$("#title-fr").click(function () { jumpWk(getWk() - 1); })
+$("#title-re").click(function () { jumpWk(getWk() + 1); })
+
+
 
 let noStartBigPanelModel = "<h4 class=\"text-center text-muted mt-5\">订餐尚未开始，请耐心等待</h4>";
 let noChooseBigPanelModel = "<h4 class=\"text-center text-muted mt-5\">本周不提供订餐</h4>";
@@ -103,13 +124,7 @@ let orderedChoiceModel =
 
 let weekdayList = ["日", "一", "二", "三", "四", "五", "六"];
 
-function getWk() {
-	return parseInt(window.location.search.slice(1));
-}
 
-if (getWk() > getThisWk()) {
-	window.location.search = "?" + getThisWk().toString();
-}
 
 // 获取基本数据
 let dish = new Array();
@@ -169,6 +184,8 @@ $.ajax({
 		throwError("ERR_ORDG_PHP");
 	}
 })
+
+
 
 if (!start) { // 无套餐可供选择
 	if (getWk() < getThisWk()) document.getElementById("order-list").innerHTML = noChooseBigPanelModel;
@@ -314,6 +331,7 @@ if (!start) { // 无套餐可供选择
 		})
 	})
 }
+
 
 
 if (done) {
