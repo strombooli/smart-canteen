@@ -135,9 +135,46 @@ function getPath() {
 	else return path;
 }
 
+function goIndex() {
+	if (window.location.href.split('login.html?p=/').length == 2) window.location.href = window.location.origin + '/' + window.location.href.split('login.html?p=/')[1];
+	else window.location.href = window.location.origin + '/index.html';
+}
+
+function goLogin() {
+	if (pathVerify("login.html")) return;
+	window.location.href = window.location.origin + '/login.html?p=' + window.location.href.substring(window.location.href.lastIndexOf(window.location.pathname), window.location.href.length);
+}
+
+if (!cooVerify() && !pathVerify("login.html")) goLogin();
+
+function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+	var expires = "expires=" + d.toGMTString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+function delCookie(cname) {
+	setCookie(cname, "", -365);
+}
+
 function cooVerify() {
-	let coo_name = document.cookie.split('@')[0].split('acc=')[1];
-	let coo_pwd = document.cookie.split('@')[1];
+	let coo_name = getCookie("acc").split("@")[0];
+	let coo_pwd = getCookie("acc").split('@')[1];
 	var cooVerRes = false;
 	$.ajax({
 		url: window.location.origin + '/assets/user.php',
@@ -153,24 +190,6 @@ function cooVerify() {
 		}
 	})
 	return cooVerRes;
-}
-
-function goIndex() {
-	if (window.location.href.split('login.html?p=/').length == 2) window.location.href = window.location.origin + '/' + window.location.href.split('login.html?p=/')[1];
-	else window.location.href = window.location.origin + '/index.html';
-}
-
-function goLogin() {
-	if (pathVerify("login.html")) return;
-	window.location.href = window.location.origin + '/login.html?p=' + window.location.href.substring(window.location.href.lastIndexOf(window.location.pathname), window.location.href.length);
-}
-
-if (!cooVerify() && !pathVerify("login.html")) goLogin();
-
-function delCookie() {
-	let d = new Date();
-	d.setTime(d.getTime() - 1);
-	document.cookie = document.cookie + ";expires=" + d.toUTCString();
 }
 
 // User functions

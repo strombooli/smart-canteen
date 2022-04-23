@@ -334,8 +334,10 @@ if (!start) { // 无套餐可供选择
 
 
 
+let dishesId = new Set();
 if (done) {
 	document.getElementsByClassName("nav-link")[1].className = document.getElementsByClassName("nav-link")[1].className.replace("disabled", "");
+	document.getElementsByClassName("nav-link")[2].className = document.getElementsByClassName("nav-link")[2].className.replace("disabled", "");
 	document.getElementById("order").parentElement.style.display = "none";
 	document.getElementById("order-no").parentElement.style.display = "block";
 	let wkid = getWk();
@@ -352,5 +354,73 @@ if (done) {
 	document.getElementById("week-start").innerText = (parseInt(thisDay.getMonth()) + 1).toString() + "/" + thisDay.getDate() + " 周" + weekdayList[thisDay.getDay()];
 	thisDay = new Date(firstWkStart + wkid * 604800000 + 604800000 - 3 * 86400000);
 	document.getElementById("week-end").innerText = (parseInt(thisDay.getMonth()) + 1).toString() + "/" + thisDay.getDate() + " 周" + weekdayList[thisDay.getDay()];
+
+	let rateModel = "<div class=\"px-5 py-3\">NAME<div style=\"float: right\"><i id=\"rateID-1\" class=\"far fa-2x fa-star\"></i><i id=\"rateID-2\" class=\"far fa-2x fa-star\"></i><i id=\"rateID-3\" class=\"far fa-2x fa-star\"></i><i id=\"rateID-4\" class=\"far fa-2x fa-star\"></i><i id=\"rateID-5\" class=\"far fa-2x fa-star\"></i></div></div>";
+	for (let i = 0; i < 5; i++) {
+		for (let j = 3; j <= 8; j++) {
+			dishesId.add(dish[parseInt(combo[chosen[i] - parseInt(combo[0][0]) + 1][j])][0] - 1);
+		}
+	}
+	dishesId.forEach(function (v) {
+		let rm = rateModel;
+		rm = rm.replace(/ID/g, v);
+		rm = rm.replace(/NAME/g, dish[v][1]);
+		document.getElementById("tab-2").innerHTML += rm;
+	})
+	dishesId.forEach(function (v) {
+		$.ajax({
+			url: './assets/rate-get.php',
+			type: 'post',
+			data: { id: v + 1, wk: getWk() },
+			dataType: 'json',
+			async: false,
+			success: function (result) {
+				if (result !== "success_empty") {
+					result = parseInt(result);
+					for (let i = 0; i <= result; i++) {
+						$("#rate" + v.toString() + "-" + i.toString()).removeClass("far");
+						$("#rate" + v.toString() + "-" + i.toString()).addClass("fas");
+					}
+					for (let i = result + 1; i <= 5; i++) {
+						$("#rate" + v.toString() + "-" + i.toString()).removeClass("fas");
+						$("#rate" + v.toString() + "-" + i.toString()).addClass("far");
+					}
+				}
+			},
+			error: function () {
+				throwError("ERR_RTG_PHP");
+			}
+		})
+	})
+	dishesId.forEach(function (v) {
+		for (let i = 1; i <= 5; i++) {
+			$("#rate" + v.toString() + "-" + i.toString()).on("click", function () {
+				for (let j = 0; j <= i; j++) {
+					$("#rate" + v.toString() + "-" + j.toString()).removeClass("far");
+					$("#rate" + v.toString() + "-" + j.toString()).addClass("fas");
+				}
+				for (let j = i + 1; j <= 5; j++) {
+					$("#rate" + v.toString() + "-" + j.toString()).removeClass("fas");
+					$("#rate" + v.toString() + "-" + j.toString()).addClass("far");
+				}
+				$.ajax({
+					url: './assets/rate-sub.php',
+					type: 'post',
+					data: { id: v + 1, rate: i, wk: getWk() },
+					dataType: 'json',
+					async: false,
+					success: function (result) {
+						if (result !== "success") {
+							throwError("ERR_RTS_REP");
+							return;
+						}
+					},
+					error: function () {
+						throwError("ERR_RTS_PHP");
+					}
+				})
+			});
+		}
+	})
 }
 
