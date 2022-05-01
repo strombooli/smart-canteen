@@ -20,7 +20,7 @@ var seled = new Array();
 
 $(function () {
 	$.ajax({
-		url: './assets/personal-get.php',
+		url: './assets/db/personal-get.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -36,7 +36,7 @@ $(function () {
 		}
 	})
 	$.ajax({
-		url: './assets/rule-get-all.php',
+		url: './assets/db/rule-get-all.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -68,7 +68,7 @@ $(function () {
 		}
 		ruleSel = ruleSel.slice(0, -1);
 		$.ajax({
-			url: './assets/personal-sub.php',
+			url: './assets/db/personal-sub.php',
 			type: 'post',
 			data: { sel: ruleSel + ";"},
 			dataType: 'json',

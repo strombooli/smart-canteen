@@ -130,7 +130,7 @@ let weekdayList = ["日", "一", "二", "三", "四", "五", "六"];
 let dish = new Array();
 let combo = new Array();
 $.ajax({
-	url: './assets/dish-get-onsel.php',
+	url: './assets/db/dish-get-onsel.php',
 	type: 'post',
 	dataType: 'json',
 	async: false,
@@ -145,7 +145,7 @@ $.ajax({
 })
 let start = true;
 $.ajax({
-	url: './assets/combo-get-rule.php',
+	url: './assets/db/combo-get-rule.php',
 	type: 'post',
 	data: { rul: getInfo("rule"), wkid: getWk() },
 	dataType: 'json',
@@ -165,7 +165,7 @@ let chosen = [-1, -1, -1, -1, -1];
 // 获取是否订餐和订餐记录
 let done = true;
 $.ajax({
-	url: './assets/ord-get.php',
+	url: './assets/db/ord-get.php',
 	type: 'post',
 	data: { wkid: getWk() },
 	dataType: 'json',

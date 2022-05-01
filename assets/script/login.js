@@ -34,7 +34,7 @@ function cooVerify() {
 	let coo_pwd = getCookie("acc").split('@')[1];
 	var cooVerRes = false;
 	$.ajax({
-		url: window.location.origin + '/assets/user.php',
+		url: window.location.origin + '/assets/db/user.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -106,7 +106,7 @@ $(function () {
 				pwd: $pwd
 			};
 			$.ajax({
-				url: './assets/user.php',
+				url: './assets/db/user.php',
 				type: 'post',
 				dataType: 'json',
 				data: datas,
@@ -178,7 +178,7 @@ $(function () {
 				usr_typ: $usr_typ
 			}
 			$.ajax({
-				url: './assets/reg.php',
+				url: './assets/db/reg.php',
 				type: 'post',
 				data: datas,
 				dataType: 'json',

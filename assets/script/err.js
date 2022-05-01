@@ -18,7 +18,7 @@ var errAll = "";
 
 $(function () {
 	$.ajax({
-		url: '../assets/err-get.php',
+		url: '../assets/db/err-get.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -42,7 +42,7 @@ $(function () {
 	})
 	$("#err-clear").click(function () {
 		$.ajax({
-			url: '../assets/err-clear.php',
+			url: '../assets/db/err-clear.php',
 			type: 'post',
 			dataType: 'json',
 			async: false,

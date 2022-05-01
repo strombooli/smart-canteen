@@ -94,7 +94,7 @@ var done = 0;
 
 $(function () {
 	$.ajax({
-		url: '../assets/phs-get.php',
+		url: '../assets/db/phs-get.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -115,7 +115,7 @@ $(function () {
 			for (let i = 0; i <= 3; i++) {
 				var datas = { typ: i };
 				$.ajax({
-					url: '../assets/dish-get-typ.php',
+					url: '../assets/db/dish-get-typ.php',
 					type: 'post',
 					dataType: 'json',
 					data: datas,
@@ -134,7 +134,7 @@ $(function () {
 				})
 			}
 			$.ajax({
-				url: '../assets/rule-get.php',
+				url: '../assets/db/rule-get.php',
 				type: 'post',
 				dataType: 'json',
 				async: false,
@@ -235,7 +235,7 @@ $(function () {
 				}
 			})
 			$.ajax({
-				url: '../assets/dish-get-onsel.php',
+				url: '../assets/db/dish-get-onsel.php',
 				type: 'post',
 				dataType: 'json',
 				async: false,
@@ -297,7 +297,7 @@ $(function () {
 			}
 			sel_sub = sel_sub.slice(0, -1);
 			$.ajax({
-				url: '../assets/sel-sub.php',
+				url: '../assets/db/sel-sub.php',
 				type: 'post',
 				data: { sel: sel_sub, wkid: getThisWk() + 1, all: 100 },
 				dataType: 'json',
@@ -305,20 +305,7 @@ $(function () {
 				success: function (result) {
 					if (result !== "success") throwError("ERR_SLS_REP");
 					else {
-						$.ajax({
-							url: '../assets/phs-sub.php',
-							type: 'post',
-							data: { phs: "2.1" },
-							dataType: 'json',
-							async: false,
-							success: function (result_cbg) {
-								if (result_cbg === "success") window.location.reload();
-								else throwError("ERR_PHSS_REP");
-							},
-							error: function () {
-								throwError("ERR_PHSS_PHP");
-							}
-						})
+						updPhs("2.1");
 					}
 				},
 				error: function () {
@@ -341,7 +328,7 @@ $(function () {
 		}
 
 		$.ajax({
-			url: '../assets/dish-get-onsel.php',
+			url: '../assets/db/dish-get-onsel.php',
 			type: 'post',
 			dataType: 'json',
 			async: false,
@@ -355,7 +342,7 @@ $(function () {
 			}
 		})
 		$.ajax({
-			url: '../assets/combo-get.php',
+			url: '../assets/db/combo-get.php',
 			type: 'post',
 			data: { wkid: getThisWk() + 1 },
 			dataType: 'json',

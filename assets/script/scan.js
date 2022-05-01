@@ -12,7 +12,7 @@ function doPrompt(n, str) {
 	let scannerStr = str;
 	if (n == 2) {
 		$.ajax({
-			url: './assets/scan-sub.php',
+			url: './assets/db/scan-sub.php',
 			type: 'post',
 			data: { userid: stud, wkid: wkid, day: new Date().getDay(), time: getCurrentTime() },
 			dataType: 'json',
@@ -25,7 +25,7 @@ function doPrompt(n, str) {
 				}
 			},
 			error: function () {
-				throwError("ERR_ORDGA_PHP");
+				throwError("ERR_SCS_PHP");
 			}
 		})
 		if (success2 != -1) {
@@ -48,7 +48,7 @@ else {
 		$("#verify-msg").hide();
 	} else {
 		$.ajax({
-			url: './assets/ord-get-all.php',
+			url: './assets/db/ord-get-all.php',
 			type: 'post',
 			data: { userid: stud, wkid: wkid },
 			dataType: 'json',

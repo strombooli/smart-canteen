@@ -24,7 +24,7 @@ function gAlertClose() {
 function throwError(s) {
 	gAlert("系统故障，请联系管理员。<br>故障代码：" + s);
 	$.ajax({
-		url: window.location.origin + '/assets/error.php',
+		url: window.location.origin + '/assets/db/error.php',
 		type: 'post',
 		data: { code: s, path: getPath() },
 		dataType: 'json',
@@ -68,7 +68,7 @@ let autoWarn = true;
 
 if (autoWarn) {
 	$.ajax({
-		url: window.location.origin + '/assets/warn-get.php',
+		url: window.location.origin + '/assets/db/warn-get.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -177,7 +177,7 @@ function cooVerify() {
 	let coo_pwd = getCookie("acc").split('@')[1];
 	var cooVerRes = false;
 	$.ajax({
-		url: window.location.origin + '/assets/user.php',
+		url: window.location.origin + '/assets/db/user.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -200,7 +200,7 @@ function getName() {
 function getUserInfo(req, reqtyp, reptyp) {
 	let rep = "";
 	$.ajax({
-		url: window.location.origin + '/assets/user-get-all.php',
+		url: window.location.origin + '/assets/db/user-get-all.php',
 		type: 'post',
 		data: { req: req, reqtyp: reqtyp, reptyp: reptyp },
 		dataType: 'json',
@@ -219,7 +219,7 @@ function getInfo(reptyp) {
 	if (reptyp === "name") return getName();
 	else {
 		$.ajax({
-			url: window.location.origin + '/assets/user-get-self.php',
+			url: window.location.origin + '/assets/db/user-get-self.php',
 			type: 'post',
 			data: { reptyp: reptyp },
 			dataType: 'json',
@@ -249,4 +249,23 @@ var firstWkStart = 1644163201000;
 function getThisWk() {
 	d = new Date();
 	return Math.round((d.getTime() - firstWkStart) / 604800000);
+}
+
+// phs function
+
+function updPhs(s){
+	$.ajax({
+		url: window.location.origin + '/assets/db/phs-sub.php',
+		type: 'post',
+		data: { phs: s },
+		dataType: 'json',
+		async: false,
+		success: function (result_phs) {
+			if (result_phs !== "success") throwError("ERR_PHSS_REP");
+			else window.location.reload();
+		},
+		error: function () {
+			throwError("ERR_PHSS_PHP");
+		}
+	})
 }

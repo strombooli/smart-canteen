@@ -1,6 +1,6 @@
 document.getElementById("quit").onclick = function () {
 	$.ajax({
-		url: './assets/log.php',
+		url: './assets/db/log.php',
 		type: 'post',
 		data: { name: getName(), time: -1, inout: 0 },
 		dataType: 'json',
@@ -20,7 +20,7 @@ document.getElementById("user-name").innerText = getName();
 document.getElementById("user-type").innerText = typName[parseInt(getInfo("usr_typ"))];
 
 $.ajax({
-	url: './assets/log-get.php',
+	url: './assets/db/log-get.php',
 	type: 'post',
 	dataType: 'json',
 	async: false,

@@ -33,7 +33,7 @@ var dishAll = "";
 
 $(function () {
 	$.ajax({
-		url: '../assets/phs-get.php',
+		url: '../assets/db/phs-get.php',
 		type: 'post',
 		dataType: 'json',
 		success: function (result) {
@@ -48,7 +48,7 @@ $(function () {
 		}
 	})
 	$.ajax({
-		url: '../assets/dish-get.php',
+		url: '../assets/db/dish-get.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -63,7 +63,14 @@ $(function () {
 				dm = dm.replace(/TYPE/g, typeArray[parseInt(dish[i][2])]);
 				if (parseInt(dish[i][7])) dm = dm.replace(/ONSEL/g, "checked=\"checked\"");
 				else dm = dm.replace(/ONSEL/g, "");
-				dm = dm.replace(/RATING/g, dish[i][8]);
+
+				let rateStr = "";
+				let rateModel0 = "<i class=\"fas fa-star\"></i>";
+				let rateModel1 = "<i class=\"far fa-star\"></i>";
+				for (let j = 0; j < parseInt(dish[i][8]); j++) rateStr += rateModel0;
+				for (let j = parseInt(dish[i][8]); j < 5; j++) rateStr += rateModel1;
+				dm = dm.replace(/RATING/g, rateStr + " " + dish[i][8]);
+
 				dm = dm.replace(/RATECNT/g, dish[i][9]);
 				dishAll += dm;
 			}
@@ -82,7 +89,7 @@ $(function () {
 		}
 		dishOnSel = dishOnSel.slice(0, -1);
 		$.ajax({
-			url: '../assets/dish-sub-onsel.php',
+			url: '../assets/db/dish-sub-onsel.php',
 			type: 'post',
 			data: { dish: dishOnSel },
 			dataType: 'json',
@@ -90,20 +97,7 @@ $(function () {
 			success: function (result) {
 				if (result !== "success" && result !== "success_empty") throwError("ERR_DSBO_REP")
 				else {
-					$.ajax({
-						url: '../assets/phs-sub.php',
-						type: 'post',
-						data: { phs: "1.1" },
-						dataType: 'json',
-						async: false,
-						success: function (result_phs) {
-							if (result_phs === "success") window.location.reload();
-							else throwError("ERR_PHSS_REP");
-						},
-						error: function () {
-							throwError("ERR_PHSS_PHP");
-						}
-					})
+					updPhs("1.1");
 				}
 			},
 			error: function () {

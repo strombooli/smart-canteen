@@ -48,7 +48,7 @@ var ruleCnt = 0;
 
 $(function () {
 	$.ajax({
-		url: '../assets/phs-get.php',
+		url: '../assets/db/phs-get.php',
 		type: 'post',
 		dataType: 'json',
 		success: function (result) {
@@ -64,7 +64,7 @@ $(function () {
 		}
 	})
 	$.ajax({
-		url: '../assets/rule-get-all.php',
+		url: '../assets/db/rule-get-all.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -112,7 +112,7 @@ $(function () {
 		}
 		ruleNew = ruleNew.slice(0, -1);
 		$.ajax({
-			url: '../assets/rul-sub.php',
+			url: '../assets/db/rul-sub.php',
 			type: 'post',
 			data: { rule: ruleNew },
 			dataType: 'json',
@@ -120,20 +120,7 @@ $(function () {
 			success: function (result) {
 				if (result !== "success" && result !== "success_empty") alert("error");
 				else {
-					$.ajax({
-						url: '../assets/phs-sub.php',
-						type: 'post',
-						data: { phs: "0.1" },
-						dataType: 'json',
-						async: false,
-						success: function (result_phs) {
-							if (result_phs !== "success") throwError("ERR_PHSS_REP");
-							else window.location.reload();
-						},
-						error: function () {
-							throwError("ERR_PHSS_PHP");
-						}
-					})
+					updPhs("0.1");
 				}
 			},
 			error: function () {

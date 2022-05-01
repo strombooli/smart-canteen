@@ -21,7 +21,7 @@ function toDisplayTime(d) {
 
 $(function () {
 	$.ajax({
-		url: './assets/phs-get.php',
+		url: './assets/db/phs-get.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,

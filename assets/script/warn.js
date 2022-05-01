@@ -54,7 +54,7 @@ function showCont(n) {
 
 $(function () {
 	$.ajax({
-		url: '../assets/warn-get.php',
+		url: '../assets/db/warn-get.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -113,7 +113,7 @@ $(function () {
 			return;
 		}
 		$.ajax({
-			url: '../assets/warn-sub.php',
+			url: '../assets/db/warn-sub.php',
 			type: 'post',
 			data: { title: warnTitle, start: warnStart, end: warnEnd, content: warnContent, rng: toggleAll },
 			dataType: 'json',

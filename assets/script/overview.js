@@ -1,6 +1,6 @@
 $(function () {
 	$.ajax({
-		url: '../assets/phs-get.php',
+		url: '../assets/db/phs-get.php',
 		type: 'post',
 		dataType: 'json',
 		async: false,
@@ -16,7 +16,7 @@ $(function () {
 		}
 	})
 	$.ajax({
-		url: '../assets/overview.php',
+		url: '../assets/db/overview.php',
 		type: 'post',
 		data: { wkid: getThisWk() + 1 },
 		dataType: 'json',
@@ -68,22 +68,9 @@ $(function () {
 		}
 	})
 	$("#overview-confirm").click(function () {
+		updPhs("3.1");
 		$.ajax({
-			url: '../assets/phs-sub.php',
-			type: 'post',
-			data: { phs: "3.1" },
-			dataType: 'json',
-			async: false,
-			success: function (result_cbg) {
-				if (result_cbg === "success") window.location.reload();
-				else throwError("ERR_PHSS_REP");
-			},
-			error: function () {
-				throwError("ERR_PHSS_PHP");
-			}
-		})
-		$.ajax({
-			url: '../assets/usr-reset.php',
+			url: '../assets/db/usr-reset.php',
 			type: 'post',
 			data: { phs: "3.1" },
 			dataType: 'json',
