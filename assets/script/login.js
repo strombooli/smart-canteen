@@ -131,7 +131,7 @@ $(function () {
 						let cookie = "acc=" + coo_name + "@" + coo_pwd + ";expires=" + coo_expire;
 						document.cookie = cookie;
 						$.ajax({
-							url: './assets/log.php',
+							url: './assets/db/log.php',
 							type: 'post',
 							data: { name: coo_name, time: getCurrentTime(), inout: 1 },
 							dataType: 'json',

@@ -301,7 +301,7 @@ if (!start) { // 无套餐可供选择
 		}
 
 		$.ajax({
-			url: './assets/ordered-sub.php',
+			url: './assets/db/ordered-sub.php',
 			type: 'post',
 			dataType: 'json',
 			async: false,
@@ -311,7 +311,7 @@ if (!start) { // 无套餐可供选择
 					return;
 				}
 				$.ajax({
-					url: './assets/ord-sub.php',
+					url: './assets/db/ord-sub.php',
 					type: 'post',
 					data: { ord: orderAll, wkid: getWk() },
 					dataType: 'json',
@@ -369,7 +369,7 @@ if (done) {
 	})
 	dishesId.forEach(function (v) {
 		$.ajax({
-			url: './assets/rate-get.php',
+			url: './assets/db/rate-get.php',
 			type: 'post',
 			data: { id: v + 1, wk: getWk() },
 			dataType: 'json',
@@ -404,7 +404,7 @@ if (done) {
 					$("#rate" + v.toString() + "-" + j.toString()).addClass("far");
 				}
 				$.ajax({
-					url: './assets/rate-sub.php',
+					url: './assets/db/rate-sub.php',
 					type: 'post',
 					data: { id: v + 1, rate: i, wk: getWk() },
 					dataType: 'json',
