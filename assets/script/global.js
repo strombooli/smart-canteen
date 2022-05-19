@@ -1,3 +1,13 @@
+// Database Init functions
+
+function init() {
+	$.ajax({
+		url: window.location.origin + '/assets/db/init.php',
+		type: 'post',
+		async: false
+	})
+}
+
 // gAlert functions
 
 function gAlert(txt) {
@@ -253,7 +263,7 @@ function getThisWk() {
 
 // phs function
 
-function updPhs(s){
+function updPhs(s) {
 	$.ajax({
 		url: window.location.origin + '/assets/db/phs-sub.php',
 		type: 'post',

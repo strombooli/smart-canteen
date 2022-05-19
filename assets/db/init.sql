@@ -1,0 +1,79 @@
+CREATE TABLE combo(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rule_id INT NOT NULL,
+    wk_id INT NOT NULL,
+    rice INT NOT NULL,
+    dish1 INT NOT NULL,
+    dish2 INT NOT NULL,
+    dish3 INT NOT NULL,
+    dish4 INT NOT NULL,
+    soup INT NOT NULL,
+    lft INT NOT NULL
+);
+CREATE TABLE dish(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    `name` TEXT NOT NULL,
+    typ INT NOT NULL,
+    calorie DOUBLE NOT NULL,
+    protein DOUBLE NOT NULL,
+    fat DOUBLE NOT NULL,
+    carbon DOUBLE NOT NULL,
+    onsel TINYINT(1) NOT NULL,
+    rating DOUBLE NOT NULL,
+    ratecnt INT NOT NULL
+);
+CREATE TABLE error(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    code TEXT NOT NULL,
+    `path` TEXT NOT NULL,
+    username TEXT NOT NULL
+);
+CREATE TABLE ord(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT,
+    time_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    time_scan TIMESTAMP NOT NULL,
+    combo_id INT NOT NULL,
+    scanned TINYINT(1) DEFAULT 0 NOT NULL,
+    wk_id INT NOT NULL
+);
+CREATE TABLE phs(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    done TINYINT(1) DEFAULT 0 NOT NULL
+);
+CREATE TABLE rate(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rater_id INT NOT NULL,
+    wk_id INT NOT NULL,
+    dish_id INT NOT NULL,
+    rate INT NOT NULL
+);
+CREATE TABLE rule(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    calorie INT NOT NULL,
+    fat INT NOT NULL,
+    protein INT NOT NULL,
+    carbon INT NOT NULL,
+    config TINYINT(1) DEFAULT 1 NOT NULL
+);
+CREATE TABLE user(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(6) NOT NULL,
+    gender CHAR(1) NOT NULL,
+    id_num CHAR(18) UNIQUE NOT NULL,
+    pwd VARCHAR(20) NOT NULL,
+    usr_typ TINYINT(1) NOT NULL,
+    last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    logined TINYINT(1) DEFAULT 0 NOT NULL,
+    rule TEXT NOT NULL,
+    ordered TINYINT(1) DEFAULT 0 NOT NULL
+);
+CREATE TABLE warn(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title TEXT NOT NULL,
+    time_start TIMESTAMP NOT NULL,
+    time_end TIMESTAMP NOT NULL,
+    content TEXT NOT NULL,
+    rang TEXT NOT NULL
+);
