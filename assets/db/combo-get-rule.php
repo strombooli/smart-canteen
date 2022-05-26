@@ -67,7 +67,7 @@ do {
 } while ($row = mysqli_fetch_array($sql));
 $rowall = '';
 for ($i = 0; $i < count($rows); $i++) {
-	for ($j = 0; $j < 9; $j++) {
+	for ($j = 0; $j < 10; $j++) {
 		$rowall = $rowall . $rows[$i][$j] . ',';
 	}
 	$rowall = $rowall . $rows[$i][$j] . ';';

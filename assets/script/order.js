@@ -206,7 +206,7 @@ if (!start) { // 无套餐可供选择
 	function genChosenPanelModel(d, c) {
 		let cpm = chosenPanelModel;
 		cpm = cpm.replace(/COMBOID/g, String.fromCharCode('A'.charCodeAt() + c));
-		let remain = combo[c - parseInt(combo[0][0]) + 1][9];
+		let remain = combo[c - parseInt(combo[0][0]) + 1][10];
 		cpm = cpm.replace(/REMAIN/g, remain);
 		if (remain <= 0) cpm = cpm.replace(/LEVEL/g, "red");
 		else if (remain <= 10) cpm = cpm.replace(/LEVEL/g, "orange");
@@ -225,7 +225,7 @@ if (!start) { // 无套餐可供选择
 			let cm = choiceModel;
 			cm = cm.replace(/COMBOID/g, String.fromCharCode('A'.charCodeAt() + i));
 
-			let remain = combo[i][9];
+			let remain = combo[i][10];
 			if (remain <= 0) {
 				cm = cm.replace(/BTNCLASS/g, "btn-gray disabled");
 				cm = cm.replace(/BTNINFO/g, "已选完");

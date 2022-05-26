@@ -35,7 +35,8 @@ if ($pwdnum != $pass) {
 
 
 
-$sql  = mysqli_query($conn, "select * from dish where onsel=1");
+// $sql  = mysqli_query($conn, "select * from dish where onsel=1");
+$sql  = mysqli_query($conn, "select * from dish");
 
 $i = 0;
 $row = mysqli_fetch_array($sql);

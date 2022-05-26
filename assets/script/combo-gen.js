@@ -92,6 +92,9 @@ function checkUpd() {
 
 var done = 0;
 
+let dish_id_in_rk = new Array();
+let id_in_dish_all = new Array();
+for (let i = 0; i < 1000; i++)dish_id_in_rk[i] = -1;
 $(function () {
 	$.ajax({
 		url: '../assets/db/phs-get.php',
@@ -146,31 +149,34 @@ $(function () {
 						rule[i] = result_rule.split(";")[i].split(",");//rule[编号]=id,indx0123
 					}
 
-					for (let i = 0; i <= total_dish_len; i++) {
+					for (let i = 0; i < total_dish_len; i++) {
 						rk[i] = new Array();
 						for (let j = 0; j < result_rule.split(";").length - 1; j++) {
 							rk_rule[j][i] = { id: -1, rank: -1, typ: -1 }
 						}
 						for (let j = 0; j <= 3; j++) {
-							rk[i][j] = { rank: -1, typ: -1 };
+							rk[i][j] = { id: -1, rank: -1, typ: -1 };
 						}
 					}
 					//各个营养素 各种餐食 按值排序
+					let cnt_tmp = 0;
 					for (let j = 3; j <= 6; j++) {
 						for (let k = 0; k <= 3; k++) {
 							dish[k].sort(function (a, b) { return a[j] - b[j]; });
 							for (let l = 0; l < dish[k].length; l++) {
-								rk[parseInt(dish[k][l][0]) - 1][j - 3].rank = l;
-								rk[parseInt(dish[k][l][0]) - 1][j - 3].typ = parseInt(dish[k][l][2]);//rk[菜品编号][营养素]=排名，餐食类
+								if (dish_id_in_rk[parseInt(dish[k][l][0]) - 1] == -1) dish_id_in_rk[parseInt(dish[k][l][0]) - 1] = cnt_tmp++;
+								rk[dish_id_in_rk[parseInt(dish[k][l][0]) - 1]][j - 3].id = parseInt(dish[k][l][0]) - 1;
+								rk[dish_id_in_rk[parseInt(dish[k][l][0]) - 1]][j - 3].rank = l;
+								rk[dish_id_in_rk[parseInt(dish[k][l][0]) - 1]][j - 3].typ = parseInt(dish[k][l][2]);//rk[菜品编号][营养素]=排名，餐食类
 							}
 						}
 					}
 
 					//各规则 各菜品 排序
 					for (let r = 0; r < rule.length; r++) {
-						for (let k = 1; k < rk.length; k++) {
+						for (let k = 0; k < rk.length; k++) {
 							for (let l = 1; l < rule[r].length; l++) {
-								rk_rule[r][k].id = k;
+								rk_rule[r][k].id = rk[k][l - 1].id;
 								rk_rule[r][k].rank += rk[k][l - 1].rank * parseInt(rule[r][l]);//rk_rule[规则编号][序号]=id,排名,餐食类
 								rk_rule[r][k].typ = rk[k][l - 1].typ;
 							}
@@ -245,6 +251,10 @@ $(function () {
 						dish_all[i] = result_dish_all.split(";")[i].split(",");
 					}
 
+
+					for (let i = 0; i < dish_all.length; i++) {
+						id_in_dish_all[parseInt(dish_all[i][0]) - 1] = i;
+					}
 					tmp = 0;
 					for (let r = 0; r < rule.length; r++) {
 						let rtm = ruleTitleModel;
@@ -256,12 +266,12 @@ $(function () {
 							let cbm = comboModel;
 							cbm = cbm.replace(/CKID/g, "ck-" + tmp.toString());
 							cbm = cbm.replace(/ID/g, (i + 1).toString());
-							cbm = cbm.replace(/MAIN/g, dish_all[sel_res[r][i][0]][1]);
-							cbm = cbm.replace(/DISH1/g, dish_all[sel_res[r][i][1]][1]);
-							cbm = cbm.replace(/DISH2/g, dish_all[sel_res[r][i][2]][1]);
-							cbm = cbm.replace(/DISH3/g, dish_all[sel_res[r][i][3]][1]);
-							cbm = cbm.replace(/DISH4/g, dish_all[sel_res[r][i][4]][1]);
-							cbm = cbm.replace(/SOUP/g, dish_all[sel_res[r][i][5]][1]);
+							cbm = cbm.replace(/MAIN/g, dish_all[id_in_dish_all[sel_res[r][i][0]]][1]);
+							cbm = cbm.replace(/DISH1/g, dish_all[id_in_dish_all[sel_res[r][i][1]]][1]);
+							cbm = cbm.replace(/DISH2/g, dish_all[id_in_dish_all[sel_res[r][i][2]]][1]);
+							cbm = cbm.replace(/DISH3/g, dish_all[id_in_dish_all[sel_res[r][i][3]]][1]);
+							cbm = cbm.replace(/DISH4/g, dish_all[id_in_dish_all[sel_res[r][i][4]]][1]);
+							cbm = cbm.replace(/SOUP/g, dish_all[id_in_dish_all[sel_res[r][i][5]]][1]);
 							comboAll += cbm;
 							tmp++;
 						}
@@ -350,6 +360,10 @@ $(function () {
 				for (let i = 0; i < result.split(";").length - 1; i++) {
 					combo[i] = result.split(";")[i].split(",");
 				}
+				combo.sort(function(a,b){return a[2]<b[2];});
+
+				let id_in_dish_display = new Array();
+				for (let i = 0; i < dishDisplay.length; i++) id_in_dish_display[parseInt(dishDisplay[i][0]) - 1] = i;
 				for (let i = 0; i < combo.length; i++) {
 					let ruleAdd = false;
 					if (i > 0) {
@@ -364,13 +378,13 @@ $(function () {
 						comboDisplayAll += rtdm;
 					}
 					let cbdm = comboDisplayModel;
-					cbdm = cbdm.replace(/ID/g, (i + 1).toString());
-					cbdm = cbdm.replace(/MAIN/g, dishDisplay[combo[i][3]][1]);
-					cbdm = cbdm.replace(/DISH1/g, dishDisplay[combo[i][4]][1]);
-					cbdm = cbdm.replace(/DISH2/g, dishDisplay[combo[i][5]][1]);
-					cbdm = cbdm.replace(/DISH3/g, dishDisplay[combo[i][6]][1]);
-					cbdm = cbdm.replace(/DISH4/g, dishDisplay[combo[i][7]][1]);
-					cbdm = cbdm.replace(/SOUP/g, dishDisplay[combo[i][8]][1]);
+					cbdm = cbdm.replace(/ID/g, combo[i][0]);
+					cbdm = cbdm.replace(/MAIN/g, dishDisplay[id_in_dish_display[parseInt(combo[i][3])]][1]);
+					cbdm = cbdm.replace(/DISH1/g, dishDisplay[id_in_dish_display[parseInt(combo[i][4])]][1]);
+					cbdm = cbdm.replace(/DISH2/g, dishDisplay[id_in_dish_display[parseInt(combo[i][5])]][1]);
+					cbdm = cbdm.replace(/DISH3/g, dishDisplay[id_in_dish_display[parseInt(combo[i][6])]][1]);
+					cbdm = cbdm.replace(/DISH4/g, dishDisplay[id_in_dish_display[parseInt(combo[i][7])]][1]);
+					cbdm = cbdm.replace(/SOUP/g, dishDisplay[id_in_dish_display[parseInt(combo[i][8])]][1]);
 					comboDisplayAll += cbdm;
 				}
 				document.getElementById("sel-list").innerHTML = comboDisplayAll;

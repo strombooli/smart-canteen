@@ -12,7 +12,7 @@ document.getElementById("quit").onclick = function () {
 			throwError("ERR_LOG_PHP");
 		}
 	})
-	delCookie();
+	delCookie("acc");
 	window.location.replace("./login.html");
 }
 
