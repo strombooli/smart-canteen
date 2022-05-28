@@ -112,8 +112,8 @@ $(function () {
 				data: datas,
 				async: false,
 				success: function (result) {
-					if (result == 'err_verify') {
-						alert('用户名或密码错误');
+					if (result == 'err_verify' || result == 'err_banned') {
+						alert('用户名或密码错误 或 账号被封禁');
 					} else if (result == 'success') {
 						let coo_name = encodeURI(document.getElementById("l-name").value);
 						let coo_pwd = document.getElementById("l-pwd").value;

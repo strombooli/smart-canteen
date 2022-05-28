@@ -12,14 +12,24 @@ $row = mysqli_fetch_row($sql);
 $num = $row[0];
 
 if (!$num) {
-	echo json_encode('err_verify');   
+	echo json_encode('err_verify');
 } else {
 	$sql = mysqli_query($conn, "select pwd from user where name='$username'");
 	$row = mysqli_fetch_row($sql);
 	$pwdnum = $row[0];
+
+	$sql = mysqli_query($conn, "select usr_typ from user where name='$username'");
+	$row = mysqli_fetch_row($sql);
+	$lvl = $row[0];
+
+	if ($lvl == 7) {
+		echo json_encode('err_verify');
+		return;
+	}
+
 	if ($pwdnum != $pwd) {
 		echo json_encode('err_verify');
 	} else {
 		echo json_encode('success');
 	}
-}	
+}
