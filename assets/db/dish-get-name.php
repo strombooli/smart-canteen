@@ -1,7 +1,7 @@
 <?php
-@header("content-type:text/html;charset=utf8");
-$conn = mysqli_connect("localhost", "root", "123456") or die("数据库用户名密码错误" . mysqli_error($conn));
-$select = mysqli_select_db($conn, 'canteen');
+@header("content-type:text/html;charset=uft8");
+$conn = mysqli_connect("localhost", "root", "123456") or die("err_conn" . mysqli_error($conn));
+$select = mysqli_select_db($conn, "canteen") or die("err_conn" . mysqli_error($conn));
 $utf = mysqli_query($conn, "set names utf8");
 
 
@@ -35,16 +35,18 @@ if ($pwdnum != $pass) {
 
 
 
-$sql  = mysqli_query($conn, "select rule from user where name='$user'");
-$row = mysqli_fetch_array($sql);
-$num = $row[0];
+$sql  = mysqli_query($conn, "select id,name from dish");
 
-$sql  = mysqli_query($conn, "select sensi from user where name='$user'");
+$i = 0;
 $row = mysqli_fetch_array($sql);
-$num1 = $row[0];
-
-if (1 == 0) {
-	echo json_encode('err');
-} else {
-	echo json_encode($num . "/" . $num1);
+do {
+	$rows[$i] = $row;
+	$i++;
+} while ($row = mysqli_fetch_array($sql));
+$rowall = '';
+for ($i = 0; $i < count($rows); $i++) {
+	$rowall = $rowall . $rows[$i][0] . ',';
+	$rowall = $rowall . $rows[$i][1] . ';';
 }
+
+echo json_encode($rowall);

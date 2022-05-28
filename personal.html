@@ -129,6 +129,20 @@
 			font-size: 0.9rem;
 			font-weight: 500
 		}
+
+		.dish-title {
+			text-align: center;
+			width: 100%;
+			font-size: 1.0rem;
+			font-weight: 900
+		}
+
+		.dish-list {
+			text-align: center;
+			width: 100%;
+			font-size: 0.9rem;
+			font-weight: 500
+		}
 	</style>
 </head>
 
@@ -165,20 +179,39 @@
 					<div class="col-xl-6 offset-xl-3">
 						<div class="viewport">
 							<div class="content-bg body-container">
-								<div>
-									<ul class="px-3 rule-title">
-										<li class="py-2" style="border-bottom: solid 1px #ccc">
-											<div class="row no-gutters">
-												<div class="col-1" style="margin: auto">ID</div>
-												<div class="col" style="margin: auto">能量</div>
-												<div class="col" style="margin: auto">脂肪</div>
-												<div class="col" style="margin: auto">蛋白质</div>
-												<div class="col" style="margin: auto">碳水化合物</div>
-											</div>
-										</li>
-									</ul>
+								<ul class="nav nav-tabs nav-justified px-3 my-3">
+									<li class="nav-item"><a class="nav-link active" onclick="goTab(0)">规则选择</a></li>
+									<li class="nav-item"><a class="nav-link" onclick="goTab(1)">过敏原设置</a></li>
+								</ul>
+								<div id="tab-0">
+									<div>
+										<ul class="px-3 rule-title">
+											<li class="py-2" style="border-bottom: solid 1px #ccc">
+												<div class="row no-gutters">
+													<div class="col-1" style="margin: auto">ID</div>
+													<div class="col" style="margin: auto">能量</div>
+													<div class="col" style="margin: auto">脂肪</div>
+													<div class="col" style="margin: auto">蛋白质</div>
+													<div class="col" style="margin: auto">碳水化合物</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div id="rul-list"></div>
 								</div>
-								<div id="rul-list"></div>
+								<div id="tab-1" style="display: none">
+									<div>
+										<ul class="px-3 dish-title">
+											<li class="py-2" style="border-bottom: solid 1px #ccc">
+												<div class="row no-gutters">
+													<div class="col-1" style="margin: auto">ID</div>
+													<div class="col" style="margin: auto">菜品</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div id="dish-list"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -193,7 +226,8 @@
 							<div class="bg-light border-top">
 								<div class="p-2 border-top">
 									温馨提示：数值代表该营养素的权重。例如0代表不考虑该营养素，-1代表越多越好，1代表越少越好。<br>
-									<span class="btn btn-block btn-green" style="margin-top: 0.3rem" id="rul-submit">提交</span>
+									<span class="btn btn-block btn-green" style="margin-top: 0.3rem"
+										id="rul-submit">提交</span>
 								</div>
 							</div>
 							<div class="footer shadow-sm d-flex justify-content-around text-center">

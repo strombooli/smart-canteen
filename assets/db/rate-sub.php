@@ -51,7 +51,7 @@ if ($rated) {
 	$sql = mysqli_query($conn, "select rate from rate where rater_id=$user_id and wk_id=$week_id and dish_id=$dish_id");
 	$row = mysqli_fetch_array($sql);
 	$prev_rate = $row[0];
-	mysqli_query($conn, "update dish set rating=(rating-$prev_rate+$rate)/ratecnt where id=$dish_id");
+	mysqli_query($conn, "update dish set rating=(rating*ratecnt-$prev_rate+$rate)/ratecnt where id=$dish_id");
 	mysqli_query($conn, "update rate set rate=$rate where rater_id=$user_id and wk_id=$week_id and dish_id=$dish_id");
 } else {
 	mysqli_query($conn, "insert into rate(rater_id,wk_id,dish_id,rate) values($user_id,$week_id,$dish_id,$rate)");

@@ -35,16 +35,12 @@ if ($pwdnum != $pass) {
 
 
 
-$sql  = mysqli_query($conn, "select rule from user where name='$user'");
-$row = mysqli_fetch_array($sql);
-$num = $row[0];
+$sel = $_POST["sel"];
 
-$sql  = mysqli_query($conn, "select sensi from user where name='$user'");
-$row = mysqli_fetch_array($sql);
-$num1 = $row[0];
+mysqli_query($conn, "update user set sensi='$sel' where name='$user'");
 
-if (1 == 0) {
+if (false) {
 	echo json_encode('err');
 } else {
-	echo json_encode($num . "/" . $num1);
+	echo json_encode('success');
 }

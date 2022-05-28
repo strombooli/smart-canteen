@@ -220,6 +220,26 @@ if (!start) { // 无套餐可供选择
 		return cpm;
 	}
 	function genChoiceModel(choiceModel, day, op) {
+		let isSensi = new Array();
+		$.ajax({
+			url: './assets/db/personal-get.php',
+			type: 'post',
+			dataType: 'json',
+			async: false,
+			success: function (result) {
+				console.log(result);
+				let sensi = result.split("/")[1].slice(0, -1).split(";");
+				for (let i = 0; i < sensi.length; i++) {
+					isSensi[parseInt(sensi[i])] = true;
+				}
+				console.log(isSensi);
+			},
+			error: function () {
+				throwError("ERR_ORDG_PHP");
+			}
+		})
+
+
 		let choiceAll = "";
 		for (let i = 0; i < combo.length; i++) {
 			let cm = choiceModel;
@@ -250,7 +270,8 @@ if (!start) { // 无套餐可供选择
 
 			let dishList = "";
 			for (let j = 3; j <= 8; j++) {
-				dishList += dish[parseInt(combo[i][j])][1] + " ";
+				if (isSensi[parseInt(combo[i][j]) + 1]) dishList += "<span class=\"text-red\">" + dish[parseInt(combo[i][j])][1] + "</span> ";
+				else dishList += dish[parseInt(combo[i][j])][1] + " ";
 			}
 			dishList = dishList.slice(0, -1);
 			cm = cm.replace(/DISHLIST/g, dishList);
