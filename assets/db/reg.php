@@ -1,7 +1,7 @@
 <?php
 @header("content-type:text/html;charset=uft8");
 $conn = mysqli_connect("localhost", "root", "123456") or die("err_conn" . mysqli_connect_error());
-$select = mysqli_select_db($conn, "myDB") or die("err_conn" . mysqli_error($conn));
+$select = mysqli_select_db($conn, "canteen") or die("err_conn" . mysqli_error($conn));
 $utf = mysqli_query($conn, "set names utf8");
 
 $username = $_POST['username'];

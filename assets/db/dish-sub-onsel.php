@@ -1,7 +1,7 @@
 <?php
 @header("content-type:text/html;charset=utf8");
 $conn = mysqli_connect("localhost", "root", "123456") or die("数据库用户名密码错误" . mysqli_error($conn));
-$select = mysqli_select_db($conn, 'myDB');
+$select = mysqli_select_db($conn, 'canteen');
 $utf = mysqli_query($conn, "set names utf8");
 
 

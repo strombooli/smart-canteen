@@ -4,6 +4,7 @@ $conn = mysqli_connect("localhost", "root", "123456") or die("FATAL_ERR" . mysql
 
 if (mysqli_query($conn, "CREATE DATABASE mydb")) {
 	echo "Database created";
+	$select = mysqli_select_db($conn, "mydb") or die("err_conn" . mysqli_error($conn));
 } else {
 	echo "Error creating database: " . mysqli_error($conn);
 	return;

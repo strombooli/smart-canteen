@@ -1,5 +1,6 @@
 CREATE TABLE combo(
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id_in_wk INT NOT NULL,
     rule_id INT NOT NULL,
     wk_id INT NOT NULL,
     rice INT NOT NULL,
@@ -36,7 +37,9 @@ CREATE TABLE ord(
     time_scan TIMESTAMP NOT NULL,
     combo_id INT NOT NULL,
     scanned TINYINT(1) DEFAULT 0 NOT NULL,
-    wk_id INT NOT NULL
+    wk_id INT NOT NULL,
+    `day` INT NOT NULL,
+    scanner_id INT DEFAULT 0 NOT NULL
 );
 CREATE TABLE phs(
     id INT AUTO_INCREMENT PRIMARY KEY,
