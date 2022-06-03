@@ -205,7 +205,7 @@ if (!start) { // 无套餐可供选择
 
 	function genChosenPanelModel(d, c) {
 		let cpm = chosenPanelModel;
-		cpm = cpm.replace(/COMBOID/g, String.fromCharCode('A'.charCodeAt() + c));
+		cpm = cpm.replace(/COMBOID/g, String.fromCharCode('A'.charCodeAt() + c - combo[0][0] + 1));
 		let remain = combo[c - parseInt(combo[0][0]) + 1][10];
 		cpm = cpm.replace(/REMAIN/g, remain);
 		if (remain <= 0) cpm = cpm.replace(/LEVEL/g, "red");
@@ -227,12 +227,10 @@ if (!start) { // 无套餐可供选择
 			dataType: 'json',
 			async: false,
 			success: function (result) {
-				console.log(result);
 				let sensi = result.split("/")[1].slice(0, -1).split(";");
 				for (let i = 0; i < sensi.length; i++) {
 					isSensi[parseInt(sensi[i])] = true;
 				}
-				console.log(isSensi);
 			},
 			error: function () {
 				throwError("ERR_ORDG_PHP");
@@ -367,7 +365,7 @@ if (done) {
 		document.getElementById("qrc").src = url;
 	});
 	for (let i = 0; i < 5; i++) {
-		document.getElementById("order-name").innerText += String.fromCharCode('A'.charCodeAt() + chosen[i]);
+		document.getElementById("order-name").innerText += String.fromCharCode('A'.charCodeAt() + chosen[i] - combo[0][0] + 1);
 	}
 	document.getElementById("user-name").innerText = getName();
 	document.getElementById("week-id").innerHTML = getWk().toString() + document.getElementById("week-id").innerHTML;

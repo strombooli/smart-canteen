@@ -8,8 +8,8 @@ var dishModel =
 	"<div class=\"col-1\">DISHID</div>" +
 	"<div class=\"col\">NAME</div>" +
 	"<div class=\"col\">TYPE</div>" +
-	"<div class=\"col\"><input id=\"ck-ID\" type=\"checkbox\" ONSEL></input></div>" +
-	"<div class=\"col\">RATING</div>" +
+	"<div class=\"col-1\"><input id=\"ck-ID\" type=\"checkbox\" ONSEL></input></div>" +
+	"<div class=\"col-3\">RATING</div>" +
 	"<div class=\"col\">RATECNT</div>" +
 	"</li>" +
 	"</ul>" +

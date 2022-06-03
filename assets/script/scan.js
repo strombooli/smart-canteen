@@ -2,7 +2,7 @@ let wkid = parseInt(window.location.search.substring(1, 4), 16).toString(10);
 let stud = parseInt(window.location.search.substring(4), 16).toString(10);
 function doPrompt(n, str) {
 	let scanClr = ["text-red", "text-red", "text-success", "text-red", "text-muted"];
-	let scanPrompt = ["已有核验记录", "核验失败", "核验成功", "非本周有效餐票", "请扫描餐票！"];
+	let scanPrompt = ["已有核验记录", "核验失败", "核验成功", "非本周有效识别码", "请扫描识别码！"];
 	if (n == 4) {
 		document.getElementById("msg").innerHTML = scanPrompt[4];
 		document.getElementById("msg").className += " " + scanClr[4];
