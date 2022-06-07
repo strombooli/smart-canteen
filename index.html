@@ -5,6 +5,7 @@
 	<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 	<title>个性食堂 - 首页</title>
 	<link href="./assets/img/favicon.svg" rel="shortcut icon">
+	<link rel="manifest" href="manifest.json">
 	<meta content="text/html;charset=UTF-8" http-equiv="Content-type">
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1" name="viewport">
@@ -98,6 +99,18 @@
 			padding: 20px 8px
 		}
 	</style>
+	
+	<script>
+		if ('serviceWorker' in window.navigator) {
+			navigator.serviceWorker.register('sw.js', { scope: './' })
+				.then(function (reg) {
+					console.log('success', reg);
+				})
+				.catch(function (err) {
+					console.log('fail', err);
+				});
+		}
+	</script>
 </head>
 
 <body>

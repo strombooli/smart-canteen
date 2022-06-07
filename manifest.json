@@ -1,0 +1,21 @@
+{
+	"name": "SmartCanteen",
+	"short_name": "smartCan",
+	"display": "standalone",
+	"scope": "/index.html",
+	"start_url": "/index.html",
+	"theme_color": "#282c34",
+	"background_color": "#282c34",
+	"description": "The PWA for SmartCanteen, a personalized dish ordering system.",
+	"categories": [
+		"productivity",
+		"utilities"
+	],
+	"icons": [
+		{
+			"type": "image/png",
+			"sizes": "200x200",
+			"src": "./assets/img/favicon.png"
+		}
+	]
+}
